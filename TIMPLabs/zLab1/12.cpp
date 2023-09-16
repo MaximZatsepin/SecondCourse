@@ -15,7 +15,7 @@ int main(){
     // Filling
     double arrOfVar[200];
     for(int i = 0; i < 200; i++){
-        arrOfVar[i] = rand()/100000.0;
+        arrOfVar[i] = rand()%100000/100000.0;
     }
 
     // Output Variables
