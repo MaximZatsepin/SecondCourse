@@ -25,11 +25,13 @@ int main(){
 
     int n, game_bet;
     int points = 100;
+    int comp_points = 100;
+    
     int dice;
 
     cout << "[Task 4]" << endl; 
 
-    while (points > 0)
+    while (points > 0 && comp_points > 0)
     {
         // Пользователь выбирает число
         cout << "\nEnter number(from 2 to 12): "; cin >> n;  
@@ -45,9 +47,11 @@ int main(){
         cout << "\nThere are " << dice << " points on the dice" << endl;
 
         // Проверка условий прогрыша/выигрыша
-        if (dice == n) {cout << "\nYou won! Your winnings: "<< game_bet * 4 <<" points"; points += game_bet * 4;}
-        else if (dice <= 7 && n <= 7 || dice > 7 && n > 7 ) {cout << "\nYou won! Your winnings: "<< game_bet <<" points"; points += game_bet;}
-        else {cout << "\nYou lose! You lose: "<< game_bet <<" points"; points -= game_bet;}
+        if (dice == n) {cout << "\nYou won! Your winnings: "<< game_bet * 4 <<" points"; points += game_bet * 4; comp_points -= game_bet;}
+        else if (dice <= 7 && n <= 7 || dice > 7 && n > 7 ) {cout << "\nYou won! Your winnings: "<< game_bet <<" points"; points += game_bet;comp_points -= game_bet;}
+        else {cout << "\nYou lose! You lose: "<< game_bet <<" points"; points -= game_bet; comp_points += game_bet;}
+
+        cout << "\n\nYour points: " << points << "\nComputer points: "<< comp_points;
         
         cout << "\n\n\n";
     }
