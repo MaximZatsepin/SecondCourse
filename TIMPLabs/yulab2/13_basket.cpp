@@ -1,12 +1,8 @@
 /*
 Вариант 6
 
-[Task 1] Разработать подпрограммы сортировки массива определенного типа данных (см. табл. 1) c помощью алгоритмов сортировки (см. табл. 2). 
-Таблица 1: Одномерный массив беззнаковых коротких целых чисел типа short int
-
-Таблица 2:
-1. Быстрая сортировка 
-2. Блочная сортировка
+[Task 3] Для сравнения алгоритмов сортировки составить таблицу (см. табл.3) следующего вида (данные получить экспериментально) для N=100, 200, 300, 400, 500. 
+(N - количество элементов в массиве). Для этого в программе обязательно вставляется точки для замера времени для выдачи времени выполнения алгоритма.  
 */
 
 
@@ -31,8 +27,8 @@ int main()
     srand(time(&t));
 
     // Диапозон значений массива
-    int min_ch = -1000;
-    int max_ch = 1000;
+    int min_ch = 16060;
+    int max_ch = 36706;
 
     cout << "\n[Task 3 (basket sort)]" << endl;
     // Количество элементов в массиве
@@ -46,7 +42,14 @@ int main()
 
     // Создание рандомного массива
     create_rnd_arr(arr, min_ch, max_ch, n);
+    cout << "\nArray for block sort: \n";
+    output_arr(arr, n); 
+
     basket_sort(arr, n);
+
+    cout << "\nSorted array by block sort:\n";
+    output_arr(arr, n);
+
     auto dur = chrono::steady_clock::now() - start;
     cout << "N=" << n <<", time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcs" << endl;
     
@@ -57,8 +60,11 @@ int main()
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n)
 {    
     for (int i = 0; i <= n; i++)    
+    {
         // num = m + rand() % (n - m + 1);
-        arr[i] = min_ch + rand() % (max_ch - min_ch + 1);
+        arr[i] = rand() % (max_ch - min_ch + 1) + min_ch;
+        if(arr[i] < 0) {arr[i] *= -1;} 
+    }
 }
  
  // Функция вывода массива

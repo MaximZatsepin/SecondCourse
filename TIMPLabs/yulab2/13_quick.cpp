@@ -30,8 +30,8 @@ int main()
     srand(time(&t));
 
     // Диапозон значений массива
-    int min_ch = -1000;
-    int max_ch = 1000;
+    int min_ch = 16060;
+    int max_ch = 36706;
 
     cout << "\n[Task 3 (quick sort)]" << endl;
 
@@ -45,10 +45,15 @@ int main()
 
     // Создание рандомного массива
     create_rnd_arr(arr, min_ch, max_ch, n);
+    cout << "\nArray for quick sort: \n";
+    output_arr(arr,n); 
 
     quick_sort(arr, 0, n-1);
+    
+    cout << "\nSorted array by quick sort:\n";
+    output_arr(arr, n);
     auto dur = chrono::steady_clock::now() - start;
-    cout << "N=" << n <<", time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcs" << endl;
+    cout << "\nN=" << n <<", time: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " mcs" << endl;
    
 }
 
@@ -56,8 +61,11 @@ int main()
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n)
 {    
     for (int i = 0; i <= n; i++)    
+    {
         // num = m + rand() % (n - m + 1);
-        arr[i] = min_ch + rand() % (max_ch - min_ch + 1);
+        arr[i] = rand() % (max_ch - min_ch + 1) + min_ch;
+        if(arr[i] < 0) {arr[i] *= -1;} 
+    }
 }
  
  // Функция вывода массива
