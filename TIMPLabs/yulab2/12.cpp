@@ -1,12 +1,9 @@
 /*
 Вариант 6
 
-[Task 1] Разработать подпрограммы сортировки массива определенного типа данных (см. табл. 1) c помощью алгоритмов сортировки (см. табл. 2). 
-Таблица 1: Одномерный массив беззнаковых коротких целых чисел типа short int
-
-Таблица 2:
-1. Быстрая сортировка 
-2. Блочная сортировка
+[Task 2] Отладить правильность работы сортировок на массивах c количеством элементов N=50 сгенерированные датчиком случайных чисел в диапазоне  
+[1x0x0, 3x70x], где xx - это цифры номера варианта. Кроме того, контролировать правильность сортировки путем подсчета контрольной суммы и числа 
+серий в массиве (оформить в виде подпрограммы).
 */
 
 
@@ -28,19 +25,17 @@ int dop_quick_sort(short int arr[], int start, int end);
 void basket_sort(short int arr[], int n);
 void sorting_one_basket( short int basket[], int n);
 
+void res_summa_and_series(short int quick_arr[], short int basket_arr[], int n);
+
 int main()
 {
     time_t t;
     srand(time(&t));
 
-    // Диапозон значений массива
-    int min_ch = -1000;
-    int max_ch = 1000;
-
-
-    // Количество элементов в массиве
-    int n;    
-    cout << "\nEnter number of series in the array: "; cin >> n;
+    // ДЛЯ ОТЛАДКИ N=50, min_ch = 16060, max_ch = 36706
+    int min_ch = 16060;
+    int max_ch = 36706;
+    int n = 50;
     
     // Массив для быстрой сортировки
     short int arr[n];
@@ -66,7 +61,9 @@ int main()
     basket_sort(basket_arr, n);
     cout << "\nSorted array by block sort:\n";
     output_arr(basket_arr, n);
-    
+
+    cout << "\n[Task_2]" << endl;
+    res_summa_and_series(arr, basket_arr, n);
 }
 
 // Заполнение массива блочной сортировки такими же эл-тами, как и для быстрой
@@ -81,9 +78,15 @@ void fill_arr(short int arr[], short int basket_arr[], int n)
 // Создание массива с рандомными элементами
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n)
 {    
-    for (int i = 0; i <= n; i++)    
+    short int y;
+    for (int i = 0; i <= n; i++)
+    {
         // num = m + rand() % (n - m + 1);
-        arr[i] = min_ch + rand() % (max_ch - min_ch + 1);
+        arr[i] = rand() % (max_ch - min_ch + 1) + min_ch;
+        if(arr[i] < 0) {arr[i] *= -1;} 
+    }
+
+        
 }
  
  // Функция вывода массива
@@ -227,4 +230,23 @@ void sorting_one_basket( short int basket[], int n) {
         // Ставим key на правильное место
         basket[j + 1] = key;
     }
+}
+
+// Фцнкция для подсчета контрольных сумм и серий
+void res_summa_and_series(short int quick_arr[], short int basket_arr[], int n)
+{
+    int summa_quick = 0;
+    int count_series_quick = 1;
+
+    int summa_basket = 0;
+    int count_series_basket = 1;
+
+    for (int i = 1; i < n; i++)
+    {
+        summa_basket += basket_arr[i]; summa_quick += quick_arr[i];
+        if (quick_arr[i-1] != (quick_arr[i]-1)) { count_series_quick++;}
+        if (basket_arr[i-1] != (basket_arr[i]-1)) { count_series_basket++;}
+    }
+    cout << "\nQuock sort: \nSumma: " << summa_quick << "\nSeries: " << count_series_quick << endl;
+    cout << "\nBasket sort: \nSumma: " << summa_quick << "\nSeries: " << count_series_quick << endl;
 }

@@ -1,20 +1,19 @@
 /*
 Вариант 6
 
-[Task 1] Разработать подпрограммы сортировки массива определенного типа данных (см. табл. 1) c помощью алгоритмов сортировки (см. табл. 2). 
-Таблица 1: Одномерный массив беззнаковых коротких целых чисел типа short int
-
-Таблица 2:
-1. Быстрая сортировка 
-2. Блочная сортировка
+[Task 3] Для сравнения алгоритмов сортировки составить таблицу (см. табл.3) следующего вида (данные получить экспериментально) для N=100, 200, 300, 400, 500. 
+(N - количество элементов в массиве). Для этого в программе обязательно вставляется точки для замера времени для выдачи времени выполнения алгоритма.  
 */
 
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+
+#include <chrono>   // Для измерения времени выполнения
 using namespace std;
  
+
 
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n);
 void output_arr(short int arr[], int n);
@@ -30,6 +29,7 @@ void sorting_one_basket( short int basket[], int n);
 
 int main()
 {
+    
     time_t t;
     srand(time(&t));
 
@@ -41,32 +41,17 @@ int main()
     // Количество элементов в массиве
     int n;    
     cout << "\nEnter number of series in the array: "; cin >> n;
+    auto start = chrono::steady_clock::now();
     
     // Массив для быстрой сортировки
     short int arr[n];
-    // Массив дляблочной сортировки
-    short int basket_arr[n];
 
     // Создание рандомного массива
     create_rnd_arr(arr, min_ch, max_ch, n);
 
-    // Заполняем такими же элементами массив для блочной сортировки
-    fill_arr(arr, basket_arr, n);
-    
-    // Быстрая сортировка
-    cout << "\nArray for quick sort: \n";
-    output_arr(arr,n); 
     quick_sort(arr, 0, n-1);
-    cout << "\nSorted array by quick sort:\n";
-    output_arr(arr, n);
-
-    // Блочная сортировка
-    cout << "\nArray for block sort: \n";
-    output_arr(basket_arr, n); 
-    basket_sort(basket_arr, n);
-    cout << "\nSorted array by block sort:\n";
-    output_arr(basket_arr, n);
-    
+    auto dur = chrono::steady_clock::now() - start;
+    cout << chrono::duration_cast<chrono::microseconds>(dur).count() << endl;
 }
 
 // Заполнение массива блочной сортировки такими же эл-тами, как и для быстрой
