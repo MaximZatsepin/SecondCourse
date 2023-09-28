@@ -18,14 +18,10 @@ using namespace std;
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n);
 void output_arr(short int arr[], int n);
 
-void fill_arr(short int arr[], short int basket_arr[], int n);
 
 void quick_sort(short int arr[], int start, int n);
 int dop_quick_sort(short int arr[], int start, int end);
 
-
-void basket_sort(short int arr[], int n);
-void sorting_one_basket( short int basket[], int n);
 
 int main()
 {
@@ -37,6 +33,7 @@ int main()
     int min_ch = -1000;
     int max_ch = 1000;
 
+    cout << "\n[Task 3 (quick sort)]" << endl;
 
     // Количество элементов в массиве
     int n;    
@@ -51,16 +48,8 @@ int main()
 
     quick_sort(arr, 0, n-1);
     auto dur = chrono::steady_clock::now() - start;
-    cout << chrono::duration_cast<chrono::microseconds>(dur).count() << endl;
-}
-
-// Заполнение массива блочной сортировки такими же эл-тами, как и для быстрой
-void fill_arr(short int arr[], short int basket_arr[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        basket_arr[i] = arr[i];
-    }
+    cout << "N=" << n <<", time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcs" << endl;
+   
 }
 
 // Создание массива с рандомными элементами
@@ -127,89 +116,4 @@ int dop_quick_sort(short int arr[], int start, int end)
 
     // Возвращаю индекс опоры
     return index_sort;
-}
-
-
-
-
-
-// Функция для корзинной сортировки
-void basket_sort(short int arr[], int n) {
-    // Находим минимальное и максимальное значения в массиве
-    short int min_val = arr[0];
-    short int max_val = arr[0];
-    for (int i = 1; i < n; i++) 
-    {
-        if (arr[i] < min_val) {
-            min_val = arr[i];
-        }
-        if (arr[i] > max_val) {
-            max_val = arr[i];
-        }
-    }
-
-    // Кол-во корзин = кол-во элементов исходного
-    int num_baskets = n;
-    // Запоминем кол-во элементов в каждой корзине
-    int basket_sizes[num_baskets] = {0};
-    // Сами корзины
-    short int* baskets[num_baskets];
-
-    for (int i = 0; i < num_baskets; i++) 
-    {
-        baskets[i] = new short int[n];
-    }
-
-    // Распределение элементов по корзинам
-    for (int i = 0; i < n; i++) 
-    {
-        // Определяем индекс : определяем насколько число больше минимального, определяем какой
-        // диапозон эл-тов, умножем на максимальный индекс -> используем int, получаем индекс корзины
-        int basket_index = int((arr[i] - min_val) / (max_val - min_val) * (num_baskets - 1));
-
-        // Заносим число в корзину под нужным индексом на последнее место
-        baskets[basket_index][basket_sizes[basket_index]] = arr[i];
-
-        // Указываем что в этой корзине теперь на 1 эл=т больше
-        basket_sizes[basket_index]++;
-    }
-
-    // Сортировка элементов внутри каждой корзины
-    for (int i = 0; i < num_baskets; i++) 
-    {
-        sorting_one_basket(baskets[i], basket_sizes[i]);
-    }
-
-    // Объединение корзин в отсортированный массив
-    int index = 0;
-    for (int i = 0; i < num_baskets; i++) {
-        for (int j = 0; j < basket_sizes[i]; j++) {
-            arr[index++] = baskets[i][j];
-        }
-        delete[] baskets[i];
-    }
-}
-
-
-
-// Функция для сортировки вставками
-void sorting_one_basket( short int basket[], int n) {
-    // Начинаем с 1, нас не интересуют пустые или с одним эл-том корзины
-    for (int i = 1; i < n; i++) 
-    {
-        // Запоминаем элемент
-        short int key = basket[i];
-        // Берем индекс эл-та слева
-        int j = i - 1;
-        // Пока слева есть эл-т и он больше, чем key
-        while (j >= 0 && basket[j] > key) 
-        {
-            // Двигаем key вправо
-            basket[j + 1] = basket[j];
-            // Берем следующий левый эл-т
-            j--;
-        }
-        // Ставим key на правильное место
-        basket[j + 1] = key;
-    }
 }

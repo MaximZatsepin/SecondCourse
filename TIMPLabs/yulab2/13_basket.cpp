@@ -13,17 +13,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+
+#include <chrono>   // Для измерения времени выполнения
 using namespace std;
  
 
+
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n);
 void output_arr(short int arr[], int n);
-
-void fill_arr(short int arr[], short int basket_arr[], int n);
-
-void quick_sort(short int arr[], int start, int n);
-int dop_quick_sort(short int arr[], int start, int end);
-
 
 void basket_sort(short int arr[], int n);
 void sorting_one_basket( short int basket[], int n);
@@ -37,46 +34,24 @@ int main()
     int min_ch = -1000;
     int max_ch = 1000;
 
-    cout << "\n[Task 1]" << endl;
+    cout << "\n[Task 3 (basket sort)]" << endl;
     // Количество элементов в массиве
     int n;    
     cout << "\nEnter number of series in the array: "; cin >> n;
+
+    auto start = chrono::steady_clock::now();
     
     // Массив для быстрой сортировки
     short int arr[n];
-    // Массив дляблочной сортировки
-    short int basket_arr[n];
 
     // Создание рандомного массива
     create_rnd_arr(arr, min_ch, max_ch, n);
-
-    // Заполняем такими же элементами массив для блочной сортировки
-    fill_arr(arr, basket_arr, n);
-    
-    // Быстрая сортировка
-    cout << "\nArray for quick sort: \n";
-    output_arr(arr,n); 
-    quick_sort(arr, 0, n-1);
-    cout << "\nSorted array by quick sort:\n";
-    output_arr(arr, n);
-
-    // Блочная сортировка
-    cout << "\nArray for block sort: \n";
-    output_arr(basket_arr, n); 
-    basket_sort(basket_arr, n);
-    cout << "\nSorted array by block sort:\n";
-    output_arr(basket_arr, n);
+    basket_sort(arr, n);
+    auto dur = chrono::steady_clock::now() - start;
+    cout << "N=" << n <<", time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcs" << endl;
     
 }
 
-// Заполнение массива блочной сортировки такими же эл-тами, как и для быстрой
-void fill_arr(short int arr[], short int basket_arr[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        basket_arr[i] = arr[i];
-    }
-}
 
 // Создание массива с рандомными элементами
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n)
@@ -93,59 +68,6 @@ void output_arr(short int arr[], int n)
         cout << arr[i] << "  ";        
     cout << "\n";    
 } 
-
-// Функция, организующая быструю сортировк
-void quick_sort(short int arr[], int start, int end)
-{ 
-    // Начало не должно быть больше окончания
-    if (start >= end) {
-        return;
-    }
-
-    // Вызываем функцию, которая отсортирует массив: *меньше* *опорное число* *больше* и вернет индекс, 
-    // который разделит последовательность для дальнейшей сортировки
-    int index_opora = dop_quick_sort(arr, start, end);
-
-    quick_sort(arr, start, index_opora-1);
-    quick_sort(arr, index_opora+1, end);
-}
-
- 
-int dop_quick_sort(short int arr[], int start, int end)
-{
-    // Выбираем опорным числом крайнее левое значение
-    int opora = arr[end];
-    // Вспомогательный индекс (возвращаемый индекс опоры)
-    int index_sort = start;
-    // Переменная для того,чтобы поменять элементы массива местами
-    short int temp;
-
-    // Цикл сортировки
-    for (int i = start; i < end; i++)
-    {
-        // Если я нахожу число меньше опоры, то я его ставлю вперед (по индексу index_sort), а число которое 
-        // было впереди, ставлю на место найденного меньшего числа (по идексу i)
-        if (arr[i] <= opora)
-        {
-            // Меняю местами
-            temp = arr[i];
-            arr[i] = arr[index_sort];
-            arr[index_sort] = temp;
-            // Двигаю index_sort 
-            index_sort ++;
-        }
-    } 
-    // После всех найденных чисел меньше опоры, ставлюю опору
-    temp = arr[end];
-    arr[end] = arr[index_sort];
-    arr[index_sort] = temp;
-
-    // Возвращаю индекс опоры
-    return index_sort;
-}
-
-
-
 
 
 // Функция для корзинной сортировки
