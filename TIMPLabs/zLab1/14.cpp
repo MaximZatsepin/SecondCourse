@@ -4,7 +4,7 @@
 чисел дважды выбирает числа от 1 до 6 (“бросает кубик”, на гранях которого цифры от 1 до 6). 
 Если сумма выпавших очков меньше либо равна 7 и играющий назвал число меньше либо равное 7, 
 он выигрывает ставку. Если сумма выпавших цифр больше 7 и играющий сделал ставку на число 
-больше 7, он также выигрывает ставку. Если игрок угадал сумму цифр, он получает в 2 раза 
+больше 7, он также выигрывает ставку. Если игрок угадал сумму цифр, он получает в 4 раза 
 больше очков, чем сделанная ставка. Ставка проиграна, если ни одна из описанных ситуаций 
 не имеет места. В начальный момент у игрока и компьютера по 100 очков. Игра идет до тех пор, 
 пока у кого-либо из играющих останется 0 очков.  
@@ -21,55 +21,43 @@ using namespace std;
 // num = m + rand() % (n - m + 1);
 
 int main(){
-    setlocale(LC_ALL,"russian");
     time_t t;
     srand(time(&t));
-    // srand(time(nullptr));
+
+    int n, stavka;
+    int userPoints = 100;
+    int pcPoints = 100;
     
-    int playerCoin = 100;
-    int compCoin = 100;
+    int dice;
 
-    cout << "\nИгра в кости!\n У вас: " << playerCoin << " монет\n У компьютера: " << compCoin << " монет.";
+    cout << "[Task 4]" << endl; 
 
-    while((playerCoin > 0) and (compCoin > 0)){
+    while (userPoints > 0 && pcPoints > 0)
+    {
+        // Выбираем число
+        cout << "\nВведите число от 2ух до 12ти: "; cin >> n;  
+        while (n < 2 || n > 12) {cout << "Неверное число, попробуйте еще раз: "; cin >> n; }
 
-        int number;
-        cout << "\nВведите число от 2х до 12ти: ";
-        cin >> number;
-
-        while(number < 2 or number > 12){
-            cout << "Число неверное, введите повторно: "; cin >> number;
-        }
-
-        int compNumber = 2 + rand() % (12 - 2 + 1);
-        playerCoin -= number;
-        compCoin -= compNumber;
-
-        int dice1 = 1 + rand() % (6 - 1 + 1);
-        int dice2 = 1 + rand() % (6 - 1 + 1);
-
-        cout <<"\nЧисло игрока: " << number << "\nЧисло компьютера: " << compNumber << "\nЧисла на кубиках: " 
-             << dice1 << " " << dice2 << endl;
+        // Делаем ставку
+        cout << "Сделайте ставку: "; cin >> stavka;
+        while (stavka <= 0 || stavka > userPoints) {cout << "Неверная ставка, введите повторно: "; cin >> stavka; }
         
-        if((dice1+dice2 <= 7 and number <=7) || (dice1+dice2 > 7 and number > 7)) {
-            cout << "\nВы победили! Вы получаете " << number*2 << " монет!";
-            playerCoin += number*2;
-        }
-        else {
-            cout << "\nВы проиграли. Вы потеряли " << number << " монет.";
-        }
+        // Генерация чисел на костях
+        dice = int(2 + rand() %(12 - 2 + 1));
 
-        if((dice1+dice2 <= 7 and compNumber <=7) || (dice1+dice2 > 7 and compNumber > 7)) {
-            cout << "\nКомпьютер победил! Он получает " << compNumber*2 << " монет!";
-            compCoin += compNumber*2;
-        }
-        else {
-            cout << "\nКомпьютер проиграл. Он потерял " << compNumber << " монет.";
-        }
+        cout << "\nНа костях выпало число " << dice << endl;
+
+        // Проверка победы
+        if (dice == n) {cout << "\nВы выйграли: "<< stavka * 4 <<" очков"; userPoints += stavka * 4; pcPoints -= stavka;}
+        else if (dice <= 7 && n <= 7 || dice > 7 && n > 7 ) {cout << "\nВы выйграли: "<< stavka <<" очков"; userPoints += stavka;pcPoints -= stavka;}
+        else {cout << "\nВы проиграли: "<< stavka <<" очков"; userPoints -= stavka; pcPoints += stavka;}
+
+        cout << "\n\nВаши очки: " << userPoints << "\nОчки компьютера: "<< pcPoints;
         
-        cout << "\n\nСейчас у вас: " << playerCoin << " монет.";
-        cout << "\nУ компьютера: " << compCoin << " монет.";
+        cout << "\n\n\n";
     }
+    
+    if (pcPoints > userPoints) {cout << "Компьютер победил\n";}
+    else {cout << "Вы победили\n";}
 
-    cout << "\n\nИгра окончена!";
 }
