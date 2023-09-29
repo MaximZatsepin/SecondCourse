@@ -12,7 +12,7 @@ void second_task();
 void third_task();
 void fourth_task();
 void fifth_task();
-void sixth_task(int n);
+void sixth_task();
 void seventh_task();
 
 
@@ -37,10 +37,7 @@ int main(){
     fifth_task();
 
     cout << "[Task 3.6]" << endl;
-    cout << "Enter n:";
-    int n; cin >> n;
-    while (n > 30 || n <= 0) {cout << "Неверный ввод, введите n повторно: "; cin >> n;}
-    sixth_task(n);
+    sixth_task();
 
     cout << "[Task 3.7]" << endl;
     seventh_task();
@@ -127,9 +124,10 @@ void fifth_task()
 }
 
 
-void sixth_task(int n)
+void sixth_task()
 {
-    cout << 1 + rand() % (30 - 1 + 1) << endl;
+    int n = int(1 + rand() % (30 - 1 + 1));
+    if (n < 0) {n *= -1;}
     double arr[n];
     for (int i =0; i < n; i++)
     {
