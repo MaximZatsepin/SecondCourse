@@ -39,6 +39,7 @@ int main(){
     cout << "[Task 3.6]" << endl;
     cout << "Enter n:";
     int n; cin >> n;
+    while (n > 30 || n <= 0) {cout << "Неверный ввод, введите n повторно: "; cin >> n;}
     sixth_task(n);
 
     cout << "[Task 3.7]" << endl;
@@ -97,7 +98,7 @@ void fourth_task()
     double arr[35];
     for (int i =0; i < 35; i++)
     {
-        arr[i] = (double)(rand())/RAND_MAX*(100 - 0) - 0;
+        arr[i] = 1 + rand() % (1000 - 1 + 1);
     }
 
     for (int i = 0; i < 35; i++)

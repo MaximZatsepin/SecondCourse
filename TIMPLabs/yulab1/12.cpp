@@ -67,3 +67,4 @@ void output_stars(int var)
     }
     cout << endl;
 }
+
