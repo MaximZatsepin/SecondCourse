@@ -84,6 +84,7 @@ void third_task()
     for (int i =0; i < 20; i++)
     {
         arr[i] = (double)(rand())/RAND_MAX*(40 - 0) - 0;
+        if (arr[i] < 0) {arr[i] *= -1;}
     }
 
     for (int i = 0; i < 20; i++)
@@ -99,6 +100,7 @@ void fourth_task()
     for (int i =0; i < 35; i++)
     {
         arr[i] = 1 + rand() % (1000 - 1 + 1);
+        if (arr[i] < 0) {arr[i] *= -1;}
     }
 
     for (int i = 0; i < 35; i++)
@@ -114,6 +116,7 @@ void fifth_task()
     for (int i =0; i < 27; i++)
     {
         arr[i] = 1 + rand() % (20 - 1 + 1);
+        if (arr[i] < 0) {arr[i] *= -1;}
     }
 
     for (int i = 0; i < 27; i++)
@@ -148,9 +151,11 @@ void seventh_task()
     for (int i = 0; i < 5; i++)
     {
         rnd_ascii = 97 + rand() % (122 - 97 + 1);
+        if (rnd_ascii < 0) {rnd_ascii *= -1;}
         while (rnd_ascii == arr[0] || rnd_ascii == arr[1] || rnd_ascii == arr[2] || rnd_ascii == arr[3] || rnd_ascii == arr[4])
         {
             rnd_ascii = 97 + rand() % (122 - 97 + 1);
+            if (rnd_ascii < 0) {rnd_ascii *= -1;}
         }
         arr[i] = rnd_ascii;
     }
