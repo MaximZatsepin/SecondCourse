@@ -14,7 +14,7 @@ int main(){
     auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     srand(time(nullptr));
-    int n = 500;
+    int n = 50;
 
     unsigned int arr[n];
     createArray(n,arr);
