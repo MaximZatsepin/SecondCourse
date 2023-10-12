@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <chrono>
 
 using namespace std;
 
@@ -10,8 +11,7 @@ void sortByBrush(int n, unsigned int arr[]);
 int getNextRatio(int ratio);
 
 int main(){
-    // Запоминаем время начала работы программы
-    clock_t start = clock();
+    auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     srand(time(nullptr));
     int n = 50;
@@ -35,9 +35,8 @@ int main(){
     }
     cout << "\n\n";
 
-    // Вычисляем
-    double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cout << "Время выполнения программы: " << duration << " миллисекунд\n\n";
+    auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
+    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " миллисекунд\n\n";
 
 }
 
