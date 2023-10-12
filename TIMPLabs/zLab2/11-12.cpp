@@ -10,9 +10,10 @@ void createArray(int n, unsigned int arr[],unsigned int arr2[]);
 void sortByBrush(int n, unsigned int arr[]);
 int getNextRatio(int ratio);
 void sortByChoise(int n, unsigned int arr[]);
+void sumOfSeries(unsigned int arr1[],unsigned int arr2[], int n);
 
 int main(){
-    setlocale(LC_ALL,"rus");
+    // setlocale(LC_ALL,"rus");
     srand(time(nullptr));
     int n;
     cout << "Введите число n: "; cin >> n;
@@ -51,6 +52,8 @@ int main(){
 
     dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
     cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " миллисекунд\n\n";
+
+    sumOfSeries(arr,arr2,n);
 }
 
 // Создание массива:
@@ -103,3 +106,13 @@ void sortByChoise(int n, unsigned int arr[]){
 }
 
 
+void sumOfSeries(unsigned int arr1[],unsigned int arr2[], int n){
+    int brushSum = 0;
+    int choiseSum = 0;
+    for(int i = 0; i < n; i++){
+        brushSum += arr1[i];
+        choiseSum += arr2[i];
+    }
+    cout << "brushSum = " << brushSum << endl;
+    cout << "choiseSum = " << choiseSum << endl;
+}
