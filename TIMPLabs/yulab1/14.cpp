@@ -59,10 +59,4 @@ int main(){
     if (comp_points > points) {cout << "Computer won!";}
     else {cout << "You won!";}
 
-   
-
-
-
-    
-
 }
