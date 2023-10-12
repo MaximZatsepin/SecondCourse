@@ -4,15 +4,13 @@
 
 #include <iostream>
 #include <time.h>
-#include <windows.h>
+
 
 using namespace std;
 
 //char
 int main()
 {
-    // setlocale(LC_ALL, "rus");
-    // SetConsoleCP(1251);
     // Штука для серии
     time_t t;
     srand(time(&t));
