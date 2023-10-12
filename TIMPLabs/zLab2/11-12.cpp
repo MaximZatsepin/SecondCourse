@@ -38,7 +38,7 @@ int main(){
     cout << "\n\n";
 
     auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
-    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " миллисекунд\n\n";
+    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " миллисекунд\n\n";
     start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     sortByChoise(n,arr2);
@@ -50,7 +50,7 @@ int main(){
     cout << "\n\n";
 
     dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
-    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " миллисекунд\n\n";
+    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " миллисекунд\n\n";
 }
 
 // Создание массива:
