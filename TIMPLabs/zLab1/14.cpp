@@ -21,6 +21,7 @@ using namespace std;
 // num = m + rand() % (n - m + 1);
 
 int main(){
+    setlocale(LC_ALL,"rus");
     time_t t;
     srand(time(&t));
 
