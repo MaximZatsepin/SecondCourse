@@ -1,0 +1,1 @@
+quicksort(index_curr + 1, index_end, array);

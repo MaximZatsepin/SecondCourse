@@ -7,7 +7,7 @@ using namespace std;
 
 // Формула для генератора от m до n
 // num = m + rand() % (n - m + 1);
-// RAND_MAX = 32767
+// RAND_MAX = 2147483647
 
 void taskA();
 void taskB();
@@ -18,6 +18,7 @@ void taskF();
 void taskG();
 
 int main(){
+    cout << RAND_MAX << endl;
     time_t t;
     srand(time(&t));
     // srand(time(nullptr));

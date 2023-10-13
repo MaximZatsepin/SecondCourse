@@ -14,7 +14,7 @@ int main(){
     auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     srand(time(nullptr));
-    int n = 50;
+    int n = 10;
 
     unsigned int arr[500];
     createArray(n,arr);
@@ -47,30 +47,33 @@ void createArray(int n, unsigned int arr[]){
     }
 }
 
-// Получить следующее расстояние между элементами
-int getNextRatio(int ratio){
-    ratio = (ratio * 10) / 13;
-    if(ratio < 1){ return 1; }
-    return ratio;
-}
-
 // Сортировка расчёской
 void sortByBrush(int n, unsigned int arr[]){
-    int sortRatio = n;
-    bool isSwapped = true;
+    double factor = 1.2473309; // фактор уменьшения
+	int step = n; // шаг сортировки
+    
+    //Последняя итерация цикла, когда step==1 эквивалентна одному проходу сортировки пузырьком
+	while (step >= 1)
+	{
+        // cout << "Step - " << step << endl;
+		for (int i = 0; i + step < n; i++)
+		{
+			if (arr[i] > arr[i + step])
+			{
+				swap(arr[i], arr[i + step]);
+			}
+		}
+		step /= factor;
 
-    while(sortRatio != 1 || isSwapped){
-        sortRatio = getNextRatio(sortRatio);
-        isSwapped = false;
-
-        for(int i = 0; i < n - sortRatio; i++){
-            if(arr[i] > arr[i + sortRatio]){
-                swap(arr[i],arr[i + sortRatio]);
-                isSwapped = true;
-            }
+         // Output
+        for(int i = 0, count = 1; i < n; i++, count++){
+            cout << arr[i] << " ";
+            // if(count == 10){ cout << endl; count = 0; 
+            
         }
-    }
-
+        cout << endl;
+	}
 }
+
 
 

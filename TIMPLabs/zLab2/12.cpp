@@ -14,7 +14,7 @@ int main(){
     auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     srand(time(nullptr));
-    int n = 50;
+    int n = 10;
 
     unsigned int arr[n];
     createArray(n,arr);
@@ -66,7 +66,16 @@ void sortByChoise(int n, unsigned int arr[]){
         }
         
         swap(arr[i], arr[minIndex]);
+
+        // // Output
+        // for(int i = 0, count = 1; i < n; i++, count++){
+        //     cout << arr[i] << " ";
+        //     // if(count == 10){ cout << endl; count = 0; 
+            
+        // }
+        // cout << endl;
     }
 }
+
 
 
