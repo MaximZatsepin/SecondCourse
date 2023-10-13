@@ -1,70 +1,70 @@
+// Task 3.1
+// With Recursion
+
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
-
-void inputArray(int m,unsigned int array[]);
-void outputArray(int m,unsigned int array[]);
-void quicksort(int index_start,int index_end,unsigned int array[]);
+void createArray(int n, unsigned int arr[]);
+void outputArray(int n, unsigned int arr[]);
+void quickSort(unsigned int arr[], int start, int end);
+int partition(unsigned int arr[], int start, int end);
 
 int main(){
-    int n;
-    cout << "input n: "; cin >> n;
-    cout << "input array of " << n << " elements: \n";
+    srand(time(nullptr));
+    
+    int n; cout << "Input n:"; cin >> n;
     unsigned int arr[n];
-    inputArray(n,arr);
+    createArray(n,arr);
 
-    cout << "unsorted array: " << endl;
+    cout << "\nCreated array:\n";
     outputArray(n,arr);
 
-    cout << "\nsorting process: " << endl;    
-    quicksort(0,n-1,arr);
+    quickSort(arr,0,n-1);
 
-    cout << "\nsorted array: " << endl;
+    cout << "\nSorted array:\n";
     outputArray(n,arr);
-
     return 0;
 }
 
-int part = 0;
 
-void quicksort(int index_start,int index_end,unsigned int array[]){
 
-    // cout << "Part " << part << ": "; outputArray(index_end+1,array);
-    // part++;
-    // cout << "\nStart(Curr) - " << index_start << ", End - " << index_end << endl;
-    
-    // Check args to stop recursion
-    if(index_start >= index_end) return;
-
-    // Sort by [min,pivot,max]
-    int pivot = array[index_end];
-    int index_curr = index_start; // current index
-    
-    for(int i = index_start; i < index_end; i++){
-        if(array[i] <= pivot){
-            swap(array[i],array[index_curr]);
-            index_curr++;
-        }
-    }
-    swap(array[index_end],array[index_curr]);
-
-    // cout << "New curr index - " << index_curr << endl;
-
-    quicksort(index_start,index_curr - 1,array); 
-    quicksort(index_curr + 1, index_end, array); 
-
-}
-
-void inputArray(int m,unsigned int array[]){
-    for(int i = 0; i < m; i++){
-        cin >> array[i];
+void createArray(int n, unsigned int arr[]){
+    for(int i = 0; i < n; i++){
+        arr[i] = 17070 + rand() % (37707 - 17070 + 1);
     }
 }
 
-void outputArray(int m,unsigned int array[]){
-    for(int i = 0; i < m; i++){
-        cout << array[i] << " ";
+void outputArray(int n, unsigned int arr[]){
+    for(int i = 0; i < n; i++){
+        cout << arr[i] << " ";
+        if((i+1)%10==0) cout << endl;
     }
     cout << endl;
+}
+
+void quickSort(unsigned int arr[], int start, int end){
+    
+    if(end <= start) return;
+
+    int pivot = partition(arr,start,end);
+    quickSort(arr,start,pivot-1);
+    quickSort(arr,pivot + 1, end);
+}
+
+int partition(unsigned int arr[], int start, int end){ // return location of pivot
+    
+    int pivot = arr[end];
+    int i = start - 1;
+
+    for(int j = start; j <= end - 1; j++){
+        if(arr[j] < pivot){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+    }
+    swap(arr[++i],arr[end]);
+
+    return i;
 }
