@@ -39,13 +39,15 @@ int main(){
     
     do{
         minindex = 10000;
-        min = 10000;
+        min = 10000;  
         for(int i = 0; i < n; i++){
+            cout << "\nChecking i = "<< i <<"\nis_visited[i] = " << is_visited[i] << "\ndistance[i] = " << distance[i];
             // Если вершину ещё не обошли и вес меньше min
             if ((!is_visited[i]) && (distance[i] < min)){
                 min = distance[i];
                 minindex = i;
             }
+            cout << "\nmin = " << min << "\nminindex = " << minindex;
         }
         // Добавляем найденный минимальный вес
         // к текущему весу вершины
@@ -54,19 +56,20 @@ int main(){
             cout << "\nChosen Node: " << minindex+1 << endl;
             for(int i = 0; i < n; i++){
                 if(graph[minindex][i] > 0){
-                    temp = min + graph[minindex][i];
+                    temp = min + graph[minindex][i];   // 57 считает новый вес до узла 
                     if(temp < distance[i]){
-                        distance[i] = temp;
+                        distance[i] = temp;   // 58-60 Отвечает за повторение веса узла
                     } 
                 }
             }
             is_visited[minindex] = true;
             
+            // just an output
             cout << "\nRecount distances:\n";
             for (int i = 0; i < n; i++) {
-                if (distance[i] != 10000) {
+                // if (distance[i] != 10000) {
                     cout << "Distance to Node " << i+1 << " is " << distance[i] << " [" << is_visited[i] << "]" << endl;
-                }
+                // }
             }
         }
         
