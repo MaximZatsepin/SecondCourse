@@ -41,7 +41,7 @@ int main(){
 
     auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
     cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд\n\n";
-    start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
+    start = chrono::steady_clock::now(); // Снова запоминаем время начала работы программы
 
     sortByChoise(n,arr2);
     cout << "\n\nВывод отсортированного массива\n";
