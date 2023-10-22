@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <chrono>
 
 using namespace std;
 
@@ -10,11 +11,10 @@ void sortByBrush(int n, unsigned int arr[]);
 int getNextRatio(int ratio);
 
 int main(){
-    // Запоминаем время начала работы программы
-    clock_t start = clock();
+    auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     srand(time(nullptr));
-    int n = 50;
+    int n = 10;
 
     unsigned int arr[500];
     createArray(n,arr);
@@ -35,9 +35,8 @@ int main(){
     }
     cout << "\n\n";
 
-    // Вычисляем
-    double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cout << "Время выполнения программы: " << duration << " миллисекунд\n\n";
+    auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
+    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " миллисекунд\n\n";
 
 }
 
@@ -48,30 +47,33 @@ void createArray(int n, unsigned int arr[]){
     }
 }
 
-// Получить следующее расстояние между элементами
-int getNextRatio(int ratio){
-    ratio = (ratio * 10) / 13;
-    if(ratio < 1){ return 1; }
-    return ratio;
-}
-
 // Сортировка расчёской
 void sortByBrush(int n, unsigned int arr[]){
-    int sortRatio = n;
-    bool isSwapped = true;
+    double factor = 1.2473309; // фактор уменьшения
+	int step = n; // шаг сортировки
+    
+    //Последняя итерация цикла, когда step==1 эквивалентна одному проходу сортировки пузырьком
+	while (step >= 1)
+	{
+        // cout << "Step - " << step << endl;
+		for (int i = 0; i + step < n; i++)
+		{
+			if (arr[i] > arr[i + step])
+			{
+				swap(arr[i], arr[i + step]);
+			}
+		}
+		step /= factor;
 
-    while(sortRatio != 1 || isSwapped){
-        sortRatio = getNextRatio(sortRatio);
-        isSwapped = false;
-
-        for(int i = 0; i < n - sortRatio; i++){
-            if(arr[i] > arr[i + sortRatio]){
-                swap(arr[i],arr[i + sortRatio]);
-                isSwapped = true;
-            }
+         // Output
+        for(int i = 0, count = 1; i < n; i++, count++){
+            cout << arr[i] << " ";
+            // if(count == 10){ cout << endl; count = 0; 
+            
         }
-    }
-
+        cout << endl;
+	}
 }
+
 
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <chrono>
 
 using namespace std;
 
@@ -10,10 +11,10 @@ void sortByChoise(int n, unsigned int arr[]);
 int getNextRatio(int ratio);
 
 int main(){
-    clock_t start = clock();
+    auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 
     srand(time(nullptr));
-    int n = 500;
+    int n = 10;
 
     unsigned int arr[n];
     createArray(n,arr);
@@ -34,8 +35,9 @@ int main(){
     }
     cout << "\n\n";
 
-    double duration = (clock() - start) / (double) CLOCKS_PER_SEC;
-    cout << "Время выполнения программы: " << duration << " миллисекунд\n\n";
+    auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
+    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " миллисекунд\n\n";
+
 }
 
 // Создание массива:
@@ -64,7 +66,16 @@ void sortByChoise(int n, unsigned int arr[]){
         }
         
         swap(arr[i], arr[minIndex]);
+
+        // // Output
+        // for(int i = 0, count = 1; i < n; i++, count++){
+        //     cout << arr[i] << " ";
+        //     // if(count == 10){ cout << endl; count = 0; 
+            
+        // }
+        // cout << endl;
     }
 }
+
 
 

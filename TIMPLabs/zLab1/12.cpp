@@ -15,7 +15,7 @@ int main(){
     // Filling
     double arrOfVar[200];
     for(int i = 0; i < 200; i++){
-        arrOfVar[i] = rand()%100000/100000.0;
+        arrOfVar[i] = rand()%10000/10000.0;
     }
 
     // Output Variables
@@ -30,7 +30,8 @@ int main(){
     int arrOfCount[10] = {0,0,0,0,0,0,0,0,0,0};
     for(int i = 0; i < 200; i++){
         // cout << "switchNumber - " << int(arrOfVar[i]*10) << endl;
-        arrOfCount[int(arrOfVar[i]*10)] += 1;
+        int index = int(arrOfVar[i]*10);
+        arrOfCount[index] += 1;
     }
 
     // Output Gystogram

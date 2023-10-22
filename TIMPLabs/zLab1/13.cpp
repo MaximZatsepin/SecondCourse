@@ -7,6 +7,7 @@ using namespace std;
 
 // Формула для генератора от m до n
 // num = m + rand() % (n - m + 1);
+// RAND_MAX = 2147483647
 
 void taskA();
 void taskB();
@@ -17,6 +18,7 @@ void taskF();
 void taskG();
 
 int main(){
+    cout << RAND_MAX << endl;
     time_t t;
     srand(time(&t));
     // srand(time(nullptr));
@@ -36,7 +38,7 @@ void taskA(){
 
     double arrOfVar1[25];
     for(int i = 0; i < 25; i++){
-        arrOfVar1[i] = -50 + rand() % (50 - (-50) + 1);
+        arrOfVar1[i] = (double)(rand())/RAND_MAX*(50 + 50) - 50;;
     }
 
     cout << "[Task 3.a] ";
@@ -66,7 +68,7 @@ void taskC(){
 
     double arrOfVar3[20];
     for(int i = 0; i < 20; i++){
-        arrOfVar3[i] = 0 + rand() % (40 - 0 + 1);
+        arrOfVar3[i] = (double)(rand())/RAND_MAX*(40 - 0) - 0;
     }
 
     cout << "[Task 3.c] ";
@@ -112,7 +114,7 @@ void taskF(){
     int n = 0 + rand() % (30 - 0 + 1);
     double arrOfVar6[n];
     for(int i = 0; i < n; i++){
-        arrOfVar6[i] = -50 + rand() % (50 - (-50) + 1);
+        arrOfVar6[i] = (double)(rand())/RAND_MAX*(100 + 100) - 100;
     }
 
     cout << "[Task 3.f] ";
@@ -126,17 +128,16 @@ void taskF(){
 void taskG(){
 
     char arrOfVar7[5];
-    for(int i = 0; i < 5; i++){
-        int switchVar = rand()%2;
-        switch (switchVar)
+    int rnd_ascii;
+    for (int i = 0; i < 5; i++){
+        rnd_ascii = 97 + rand() % (122 - 97 + 1);
+        if (rnd_ascii < 0) {rnd_ascii *= -1;}
+        while (rnd_ascii == arrOfVar7[0] || rnd_ascii == arrOfVar7[1] || rnd_ascii == arrOfVar7[2] || rnd_ascii == arrOfVar7[3] || rnd_ascii == arrOfVar7[4])
         {
-        case 1:
-            arrOfVar7[i] = 65 + rand() % (90 - 65 + 1);
-            break;
-        default:
-        arrOfVar7[i] = 97 + rand() % (122 - 97 + 1);
-            break;
+            rnd_ascii = 97 + rand() % (122 - 97 + 1);
+            if (rnd_ascii < 0) {rnd_ascii *= -1;}
         }
+        arrOfVar7[i] = rnd_ascii;
     }
 
     for(int i = 0; i < 5; i++){
