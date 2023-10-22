@@ -16,6 +16,7 @@
 #include <time.h>
 #include <chrono>   // Для измерения времени выполнения
 
+
 using namespace std;
 
 void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n);
@@ -25,7 +26,7 @@ void swap(int& a, int& b);
 int rarefaction(short int arr[], int low, int high);
 void quick_sort(short int arr[], int low, int high);
 
-
+ 
 int main()
 {
     
@@ -44,26 +45,36 @@ int main()
 
     // Массив для быстрой сортировки
     short int arr[n];
+   
 
     // Создание рандомного массива
     create_rnd_arr(arr, min_ch, max_ch, n);
+    //output_arr(arr, n);
 
     auto start = chrono::steady_clock::now();
+    cout << "START" << endl;
     quick_sort(arr, 0, n-1);
 
     auto dur = chrono::steady_clock::now() - start;
     cout << "\nN=" << n <<", time: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " mcs" << endl;
+    cout << "END" << endl;
    
 }
 
 // Создание массива с рандомными элементами
-void create_rnd_arr(short int arr[], int min_ch, int max_ch, int n)
+void create_rnd_arr(short int arr[], int min_ch, int max_ch, int l)
 {    
-    for (int i = 0; i <= n; i++)    
+    cout << l << endl;
+    for (int i = 0; i <= l; i++)    
     {
+
         // num = m + rand() % (n - m + 1);
         arr[i] = rand() % (max_ch - min_ch + 1) + min_ch;
+        if (i% 1000 == 0) {cout << i << " "<<  arr[i] << endl;}
+        
         if(arr[i] < 0) {arr[i] *= -1;} 
+        //cout << arr[i] << endl;
+
     }
 }
  
@@ -113,6 +124,8 @@ void quick_sort(short int arr[], int low, int high)
 
     while (top >= 0) 
     {
+        //cout << top << endl;
+
         // Определяем индексы-границы сортировки
         high = stack[top--];
         low = stack[top--];
