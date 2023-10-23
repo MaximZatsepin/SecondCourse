@@ -8,18 +8,21 @@
 */
 #include <iostream>
 #include <time.h>
-
 using namespace std;
+
+struct Branch{
+    int data;
+    struct Branch *left;
+    struct Branch *right;
+};
+
 void fillArray(int array[], int n);
 void outputArray(int array[], int n);
-Node* newNode(int data);
+Branch* addBranch2Tree(Branch *node, int data);
+Branch* createBT(int arr[], int n);
+void outputBT(Branch *node, int gen);
 
 
-struct Node{
-    int data;
-    struct Node *left;
-    struct Node *right;
-};
 
 int main(){
     srand(time(nullptr));
@@ -28,6 +31,24 @@ int main(){
     int arr[n];
     
     fillArray(arr,n);
+
+    
+
+    Branch *root = createBT(arr,n);
+
+    Branch *leftBranch = root;
+    int index = 0;
+    while(leftBranch){
+        cout << "left branch n." << index++ << " is " << leftBranch->data << endl;
+        leftBranch = leftBranch->left;
+    }
+    Branch *rightBranch = root;
+    index = 0;
+    while(rightBranch){
+        cout << "right branch n." << index++ << " is " << rightBranch->data << endl;
+        rightBranch = rightBranch->right;
+    }
+    // outputBT(root,0);
 
     outputArray(arr,n);
 }
@@ -45,25 +66,40 @@ void outputArray(int array[], int n){
     cout << endl;
 }
 
-Node* createNewNode(int data){ 
-    Node *newNode = new Node;
-    *newNode = {data,NULL,NULL};
-    return newNode;
-}
-// 34 15 12
-void createTree(int arr[],int n){
-    Node* root = createNewNode(arr[0]);
-    
-    for(int i = 1; i < n; i++){
-        if(arr[i] < root->data){
-            root->left = createNewNode(arr[i]);
-        }
-        else{
-            root->right = createNewNode(arr[i]);
-        }
+Branch* addBranch2Tree(Branch *node, int data){
+
+    if(!node){
+        node = new Branch;
+        node->data = data;
+        node->left = NULL;
+        node->right = NULL;
+        return node;
     }
-
+    if(data < node->data){
+        node->left = addBranch2Tree(node->left,data);
+    } else {
+        node->right = addBranch2Tree(node->right,data);
+    }
+    return node;
 }
 
+Branch* createBT(int arr[], int n){
+    Branch *root;
 
+    for(int i = 0 ; i < n; i++){
+        root = addBranch2Tree(root,arr[i]);
+    }
+    return root;
+}
 
+void outputBT(Branch *node, int gen){
+    if(!node){
+        return;
+    }
+    cout << "gen: " << gen++ << ", data: " << node->data;
+
+    outputBT(node->left,gen);
+    outputBT(node->right,gen);
+
+    return;
+}

@@ -45,7 +45,7 @@ void addFields(int lake[100][100],int m, int n){
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
             int probability = rand() % 11;
-            if (probability <= 2) {
+            if (probability <= 1) {
                 lake[i][j] = -1;
             }else lake[i][j] = 0;
         }
@@ -77,7 +77,10 @@ bool isCellConsist(int lake[100][100],int  i, int j, int m, int n){
 void waveAlgorithm(int lake[][100],int m, int n){
     Cell queue[m*n+1];
     int qStart = 0, qEnd = 1;
-    queue[qStart] = {0,0,0};
+    queue[qStart].dist = 0;
+    queue[qStart].i = 0;
+    queue[qStart].j = 0;
+    
 
     while(qStart < qEnd){
         Cell curr = queue[qStart++];
@@ -91,7 +94,10 @@ void waveAlgorithm(int lake[][100],int m, int n){
             int I = curr.i + di[k], J = curr.j + dj[k];
             if(isCellConsist(lake, I, J, m, n)){
                 lake[I][J] = curr.dist + 1;
-                queue[qEnd++] = {I,J,curr.dist + 1};
+                queue[qEnd++].dist = curr.dist + 1;
+                queue[qEnd].i = I;
+                queue[qEnd].j = J;
+                // = {I,J,curr.dist + 1};
             }
         }
     }
