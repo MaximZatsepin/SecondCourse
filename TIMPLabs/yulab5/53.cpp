@@ -123,22 +123,22 @@
 
 
 #include <iostream>
+using namespace std;
 
 const int MAX_M = 100; // Максимальные размеры озера
+const int MAX_N = 100; // Максимальные размеры озера
 const int INF = 1e9;  // "Бесконечность" для инициализации расстояний
 
-int lake[MAX_M][MAX_M]; // Матрица озера
-int path[MAX_M][MAX_M]; // Матрица пути
+int lake[MAX_M][MAX_N]; // Матрица озера
+int path[MAX_M][MAX_N]; // Матрица пути
 int m, n;               // Размеры озера
 
 // Очередь для BFS
 int queue[MAX_M * MAX_M][2];
 int front, rear;
 
-void initializeQueue() {
-    front = rear = -1;
-}
 
+// Добавление в очередь
 void enqueue(int x, int y) {
     if (front == -1) {
         front = rear = 0;
@@ -151,12 +151,18 @@ void enqueue(int x, int y) {
     }
 }
 
+
+// Проверка очереди (извлечение)
 void dequeue(int &x, int &y) {
+    // Получаем xy из ячейки с индексом front
     x = queue[front][0];
     y = queue[front][1];
+    // Если front равен rear, то очередь пуста
     if (front == rear) {
         front = rear = -1;
-    } else {
+    }
+    // Иначе двигаем front на след. ячейку 
+    else {
         front++;
     }
 }
@@ -177,8 +183,10 @@ void bfs() {
         }
     }
 
-    initializeQueue();
+    // Обозначаем что очередь пуста
+    front = rear = -1;
     path[0][0] = 0;
+    // Заполняем очередь первым элементом (0,0)
     enqueue(0, 0);
 
     while (front != -1) {
@@ -199,14 +207,14 @@ void bfs() {
 
 int main() {
     // Ввод размеров озера и данных о клетках
-    std::cin >> m >> n;
+    cin >> m >> n;
     // for (int i = 0; i < m; i++) {
     //     for (int j = 0; j < n; j++) {
-    //         std::cin >> lake[i][j];
+    //         cin >> lake[i][j];
     //     }
     // }
 
-    int lake[n][n] = {{0,0,0,0,0,0,0,0,0,0},
+    int lake[m][n] = {{0,0,0,0,0,0,0,0,0,0},
                                              {0,0,0,1,0,0,0,1,0,0},
                                              {1,0,0,0,0,0,0,1,0,0},
                                              {0,0,0,0,0,0,0,0,0,0},
@@ -221,7 +229,7 @@ int main() {
     bfs();
 
     // Выводим кратчайший путь
-    std::cout << "Кратчайший путь до правого нижнего угла: " << path[m - 1][n - 1] << std::endl;
+    cout << "Кратчайший путь до правого нижнего угла: " << path[m - 1][n - 1] << endl;
 
     return 0;
 }
