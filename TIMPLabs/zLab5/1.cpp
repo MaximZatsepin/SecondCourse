@@ -32,7 +32,6 @@ int main(){
     
     fillArray(arr,n);
 
-    
 
     Branch *root = createBT(arr,n);
 
