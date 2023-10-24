@@ -17,6 +17,7 @@ const int di[] = {0,0,-1,1};
 const int dj[] = {-1,1,0,0};
 
 
+
 int main() {
     srand(time(nullptr));
 
@@ -40,12 +41,12 @@ int main() {
     return 0;
 }
 
-void addFields(int lake[100][100],int m, int n){
+void addFields(int lake[][100],int m, int n){
     // adds islands
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
             int probability = rand() % 11;
-            if (probability <= 1) {
+            if (probability <= 2) {
                 lake[i][j] = -1;
             }else lake[i][j] = 0;
         }
@@ -70,13 +71,14 @@ void outputMatrix(int matrix[][100],int m, int n){
     }
 }
 
-bool isCellConsist(int lake[100][100],int  i, int j, int m, int n){
+bool isCellConsist(int lake[][100],int  i, int j, int m, int n){
     return i >= 0 && i < m && j >= 0 && j < n && lake[i][j] == 0;
 }
 
 void waveAlgorithm(int lake[][100],int m, int n){
     Cell queue[m*n+1];
     int qStart = 0, qEnd = 1;
+    // queue[qStart] = {0,0,0};
     queue[qStart].dist = 0;
     queue[qStart].i = 0;
     queue[qStart].j = 0;
@@ -94,10 +96,10 @@ void waveAlgorithm(int lake[][100],int m, int n){
             int I = curr.i + di[k], J = curr.j + dj[k];
             if(isCellConsist(lake, I, J, m, n)){
                 lake[I][J] = curr.dist + 1;
-                queue[qEnd++].dist = curr.dist + 1;
+                queue[qEnd].dist = curr.dist + 1;
                 queue[qEnd].i = I;
-                queue[qEnd].j = J;
-                // = {I,J,curr.dist + 1};
+                queue[qEnd++].j = J;
+                // queue[qEnd++] = {I,J,curr.dist + 1};
             }
         }
     }

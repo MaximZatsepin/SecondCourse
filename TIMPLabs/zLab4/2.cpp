@@ -5,7 +5,7 @@ using namespace std;
 int main(){
     int n = 6;
     // definition for matrix of links
-    int graph[n][n] = {{0,0,0,5,6,9},
+    int graph[100][100] = {{0,0,0,5,6,9},
                        {0,0,7,8,5,8},
                        {0,7,0,4,5,4},
                        {5,8,4,0,0,0},
