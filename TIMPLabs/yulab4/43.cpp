@@ -138,8 +138,31 @@ int queue[MAX_M * MAX_M][2];
 int front, rear;
 
 
+void output_queue()
+{
+    for (int i = 0; i < 100; i++)
+    {
+        cout << queue[i][0] << queue[i][1] << " ";
+    }
+    cout << endl;
+}
+
+void output_path()
+{
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << path[i][j] <<  " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 // Добавление в очередь
 void enqueue(int x, int y) {
+
     if (front == -1) {
         front = rear = 0;
         queue[rear][0] = x;
@@ -149,6 +172,7 @@ void enqueue(int x, int y) {
         queue[rear][0] = x;
         queue[rear][1] = y;
     }
+   output_queue();
 }
 
 
@@ -165,6 +189,7 @@ void dequeue(int &x, int &y) {
     else {
         front++;
     }
+    output_queue();
 }
 
 // Проверка, является ли клетка в пределах озера и не является ли островом
@@ -186,7 +211,6 @@ void bfs() {
     // Обозначаем что очередь пуста
     front = rear = -1;
     path[0][0] = 0;
-    // Заполняем очередь первым элементом (0,0)
     enqueue(0, 0);
 
     while (front != -1) {
@@ -199,6 +223,9 @@ void bfs() {
 
             if (isValid(nx, ny) && path[nx][ny] == INF) {
                 path[nx][ny] = path[x][y] + 1;
+
+                output_path();
+                
                 enqueue(nx, ny);
             }
         }
@@ -216,9 +243,9 @@ int main() {
 
     int lake[m][n] = {{0,0,0,0,0,0,0,0,0,0},
                                              {0,0,0,1,0,0,0,1,0,0},
-                                             {1,0,0,0,0,0,0,1,0,0},
-                                             {0,0,0,0,0,0,0,0,0,0},
-                                             {0,0,1,0,0,1,0,0,0,0},
+                                             {1,1,0,0,1,1,0,1,0,0},
+                                             {0,0,0,1,1,1,1,1,1,1},
+                                             {0,0,1,0,1,1,0,0,0,0},
                                              {0,1,1,0,0,0,0,0,0,1},
                                              {0,0,0,0,0,0,0,0,1,1},
                                              {0,0,0,1,1,0,0,0,0,0},
@@ -230,6 +257,4 @@ int main() {
 
     // Выводим кратчайший путь
     cout << "Кратчайший путь до правого нижнего угла: " << path[m - 1][n - 1] << endl;
-
-    return 0;
 }
