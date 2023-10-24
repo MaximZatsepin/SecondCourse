@@ -204,7 +204,14 @@ void bfs() {
     // Инициализация матрицы пути
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            path[i][j] = INF;
+            if (lake[i][j] == 1)
+            {
+                path[i][j] = -1;
+            }
+            else{
+                path[i][j] = INF;
+            }
+            
         }
     }
 
