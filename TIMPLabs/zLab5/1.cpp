@@ -27,7 +27,7 @@ void outputBT(Branch *node, int gen);
 int main(){
     srand(time(nullptr));
     
-    int n = 18;
+    int n = 10 ;
     int arr[n];
     
     fillArray(arr,n);
@@ -36,26 +36,15 @@ int main(){
 
     Branch *root = createBT(arr,n);
 
-    Branch *leftBranch = root;
-    int index = 0;
-    while(leftBranch){
-        cout << "left branch n." << index++ << " is " << leftBranch->data << endl;
-        leftBranch = leftBranch->left;
-    }
-    Branch *rightBranch = root;
-    index = 0;
-    while(rightBranch){
-        cout << "right branch n." << index++ << " is " << rightBranch->data << endl;
-        rightBranch = rightBranch->right;
-    }
-    // outputBT(root,0);
+
+    outputBT(root,0);
 
     outputArray(arr,n);
 }
 
 void fillArray(int array[], int n){
     for(int i = 0; i < n; i++){
-        array[i] = rand() % 120;
+        array[i] = rand() % 160;
     }
 }
 
@@ -96,10 +85,21 @@ void outputBT(Branch *node, int gen){
     if(!node){
         return;
     }
-    cout << "gen: " << gen++ << ", data: " << node->data;
+    cout << "gen: " << gen++ << ", data: " << node->data << endl;
 
     outputBT(node->left,gen);
     outputBT(node->right,gen);
 
     return;
 }
+
+
+/*
+
+                                90
+                            49      96
+                         45   -    81     105
+                        3  -     -   -   -   119
+                      -   5                 -   -
+
+*/
