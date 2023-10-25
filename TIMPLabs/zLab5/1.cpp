@@ -10,11 +10,12 @@
 #include <time.h>
 using namespace std;
 
-struct Branch{
+struct Branch{ // Node
     int data;
     struct Branch *left;
     struct Branch *right;
 };
+
 
 void fillArray(int array[], int n);
 void outputArray(int array[], int n);
