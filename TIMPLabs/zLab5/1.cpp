@@ -8,19 +8,22 @@
 */
 #include <iostream>
 #include <time.h>
+// #include <string>
 using namespace std;
 
-struct Branch{
+struct Branch{ // Node
     int data;
     struct Branch *left;
     struct Branch *right;
 };
+
 
 void fillArray(int array[], int n);
 void outputArray(int array[], int n);
 Branch* addBranch2Tree(Branch *node, int data);
 Branch* createBT(int arr[], int n);
 void outputBT(Branch *node, int gen);
+bool keyFind(Branch *node, int key);
 
 
 
@@ -39,6 +42,20 @@ int main(){
     outputBT(root,0);
 
     outputArray(arr,n);
+
+    cout << "\nLooking for key " << arr[5];
+    bool found = keyFind(root, arr[5]);
+    
+    if (found) { cout << "\nKey found!"; }
+    else cout << "\nKey not found.";
+
+    cout << "\n\nLooking for key " << arr[4] + 1;
+    found = keyFind(root, arr[4] + 1);
+    
+    if (found) { cout << "\nKey found!"; }
+    else cout << "\nKey not found.";
+
+    cout << endl;
 }
 
 void fillArray(int array[], int n){
@@ -71,6 +88,7 @@ Branch* addBranch2Tree(Branch *node, int data){
     return node;
 }
 
+// обход дерева сверху вниз
 Branch* createBT(int arr[], int n){
     Branch *root;
 
@@ -90,6 +108,25 @@ void outputBT(Branch *node, int gen){
     outputBT(node->right,gen);
 
     return;
+}
+
+// Поиск значения по совпадению
+// Если ноды нет, ключ не найден
+// Если дата=ключ, ключ найден
+// Вызывать рекурсивно
+bool keyFind(Branch *node, int key) {
+    if (!node) {
+        return false; // Ключ не найден
+    }
+
+    if (node->data == key) {
+        return true; // Ключ найден
+    }
+
+    bool foundInLeft = keyFind(node->left, key);
+    bool foundInRight = keyFind(node->right, key);
+
+    return foundInLeft || foundInRight; // Если ключ найден в левом или правом поддереве, вернуть true
 }
 
 
