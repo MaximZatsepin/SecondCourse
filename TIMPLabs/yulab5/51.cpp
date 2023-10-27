@@ -1,103 +1,78 @@
 /*
-[Вариант 6]
-1.	Написать программу поиска кратчайшие расстояния от 1-й вершины до
-всех остальных для графа согласно своего варианта (см. Рис. 11),
-используя алгоритм Дейкстры. Составьте таблицу
-сравнения двух алгоритмов по времени или количеству шагов.
+Вариант 8
+1 Построить двоичное дерево, содержащее n = 14 узлов. Значения ключей в узлах задавать с
+помощью датчика случайных чисел с диапазоном D от 0 до 120
 */
 
-
 #include <iostream>
-#include <chrono>   // Для измерения времени выполнения
 using namespace std;
 
-const int count_vertices = 8; // Количество вершин в графе
-const int INF = 1e9; // "Бесконечность" для инициализации расстояний
+int random();
 
 
-void solution(int graph[][count_vertices], int lvl_vertices, int distances[]);
+// Структура узла, у него есть левое и правое поддеревья, а так же я запоминаю его уровень 
+struct TreeNode {
+    // узел
+    int key;
+    // Левое поддерево
+    TreeNode* left;
+    // Правое поддерево
+    TreeNode* right;
+    // Номер узла
+    int level;
+    // Конструктор структуры, указываем стартовые значения 
+    TreeNode(int val, int lvl) : key(val), left(nullptr), right(nullptr), level(lvl) {}
+};
 
-int main() {
-                                            //    1 2 3 4 5 6 7 8
-    int graph[count_vertices][count_vertices] = {{0,1,0,0,4,3,0,5},
-                                                 {1,0,7,6,0,0,0,2},
-                                                 {0,7,0,8,0,0,0,0},
-                                                 {0,6,8,0,3,2,0,0},
-                                                 {4,0,0,3,0,0,0,0},
-                                                 {3,0,0,2,0,0,5,1},
-                                                 {0,0,0,0,0,5,0,4},
-                                                 {5,2,0,0,0,1,4,0}};
-
-    
-    int distances[count_vertices];    // Массив для хранения расстояния от 1 до n вершины
-    cout << "\n[Task 1 - Dijkstra's algorithm] \n\n";
-    
-    // Стартовая точка отсчета времени
-    auto start = chrono::steady_clock::now();
-    for (int lvl_vertices = 0; lvl_vertices < count_vertices; lvl_vertices++)
-    {
-        solution(graph, lvl_vertices, distances);
-        
-        // Вывод кратчайших расстояний
-        for (int i = 0; i < count_vertices; ++i) {
-            cout << distances[i] << " ";
-        }
-        cout << endl;
+// Рекурсивная вставка уздла в дереве
+TreeNode* insert(TreeNode* root, int key, int level) {
+    // Достигли листового узла
+    if (root == nullptr) {
+        return new TreeNode(key, level);
     }
-
-
-    // Конечная точка, вывод времени работы
-    auto dur = chrono::steady_clock::now() - start;
-    cout <<"\ntime: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " mcs\n" << endl;
-
+    // Значение key меньше узла
+    if (key < root->key) {
+        // Переходимв левую ветку этого узла и вызываем эту же функцию для него
+        root->left = insert(root->left, key, level + 1);
+    // Значение key больше узла
+    } else if (key > root->key) {
+        // Переводим в правую ветку 
+        root->right = insert(root->right, key, level + 1);
+    }
 }
 
 
-// Функция для выполнения алгоритма Дейкстры
-void solution(int graph[][count_vertices], int lvl_vertices, int distances[]) 
+// Объод дерева "снизу - вверх"
+void bottomUpTraversal(TreeNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+    bottomUpTraversal(node->left);
+    bottomUpTraversal(node->right);
+    cout << "Level " << node->level << ": " << node->key << endl;
+}
+
+int main() {
+    int n = 14;    // Кол-во узлов
+
+    TreeNode* root = nullptr;
+
+    cout << "\nNumbers: " << endl;
+    for (int i = 0; i < n; ++i) {
+        int key = random();
+        cout << key << " ";
+        root = insert(root, key, 1); // Начинаем с уровня 1
+    }
+
+    cout << "\n\nResult: " << endl;
+    bottomUpTraversal(root);
+}
+
+
+
+int random()
 {
-    bool visited[count_vertices] = {false};
-
-    for (int i = 0; i < count_vertices; ++i) 
-    {
-        // Устанавливаем бесконечное значение во всех ячейках изначально
-        distances[i] = INF;
-    }
-    // У той вершины, с которой начинаем, ставим 0
-    distances[lvl_vertices] = 0;
-    
-    for (int i = 0; i < count_vertices; ++i) 
-    {
-        int minDistance = INF;
-        int index;
-
-        // cout << "Distance:" << endl;
-        // for (int i = 0; i < count_vertices; i++)
-        // {
-        //     cout  << distances[i] << " ";
-        // }
-        // cout << endl;
-
-        // Найдем вершину с минимальным расстоянием
-        for (int j = 0; j < count_vertices; ++j) {
-            if (!visited[j] && distances[j] < minDistance) 
-            {
-                minDistance = distances[j];
-                index = j;
-            }
-        }
-
-         
-        visited[index] = true;
-        //cout << "Rassmatrivenaya vershina: " << index << endl;
-
-        // Обновляем расстояния до смежных вершин
-        for (int i = 0; i < count_vertices; ++i) {
-            if (!visited[i] && graph[index][i] != 0 && distances[index] != INF && distances[index] + graph[index][i] < distances[i]) 
-            {
-                //cout << i << " " << distances[i] << " more " << distances[index] + graph[index][i] << endl;
-                distances[i] = distances[index] + graph[index][i];
-            }
-        }
-    }
+    int rnd =  rand() % (120 - 0 + 1);
+    if (rnd < 0) {rnd *= -1;}
+    return rnd;
 }
