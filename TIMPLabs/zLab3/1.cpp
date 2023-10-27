@@ -1,4 +1,4 @@
-// https://www.youtube.com/watch?v=4s-aG6yGGLU
+
 #include <iostream>
 #include <time.h>
 #include <chrono>
@@ -7,6 +7,7 @@ void createArray(unsigned int arr[], int n);
 void outputArray(unsigned int arr[],int n);
 void quickSort(unsigned int arr[], int start, int end);
 void swap(int& a, int& b);
+void res_summa_and_series(unsigned int arr1[], int n);
 
 
 int main(){
@@ -19,12 +20,16 @@ int main(){
     cout << "\nunsorted array: \n";
     outputArray(arr,n);
 
+    res_summa_and_series(arr,n);
+
     quickSort(arr,0,n);
 
     cout << "\nsorted array: \n";
     outputArray(arr,n);
     auto dur = chrono::steady_clock::now() - start; // counting program time
     cout << "\ntime delay: " << chrono::duration_cast<chrono::microseconds>(dur).count()/1000 << " millisec" << endl;
+
+    res_summa_and_series(arr,n);
 }
 
 void createArray(unsigned int arr[], int n){
@@ -59,7 +64,7 @@ void quickSort(unsigned int arr[], int start, int end){
     swap(arr[minIndex],arr[end-1]);
     // cout << "minindex = " << minIndex << endl;
     // cout << "--------------------------------" << endl;
-    quickSort(arr,start,minIndex - 1);
+    quickSort(arr,start,minIndex);
     quickSort(arr,minIndex + 1,end);
 }
 
@@ -68,4 +73,16 @@ void swap(int& a, int& b)
     int temp = a;
     a = b;
     b = temp;
+}
+
+void res_summa_and_series(unsigned int arr1[], int n){
+    int summa = 0;
+    int countSeries = 1;
+
+    for (int i = 1; i < n; i++)
+    {
+        summa += arr1[i];
+        if (arr1[i-1] > (arr1[i])) { countSeries++;}
+    }
+    cout << "\nQuickSort: \nSumma: " << summa << "\nSeries: " << countSeries << endl;
 }

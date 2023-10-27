@@ -1,14 +1,4 @@
 /*
-Двигатель, дизель, двигатели внутреннего сгорания и реактивный
-
-1 Спроектируйте абстракции и представьте иерархию классов в виде схемы.
-2 Разработайте конструкторы, атрибуты и методы для каждого из определяемых классов.
-3 Реализуйте программу в соответствии с вариантом исполнения, используя экземпляры описанных классов.
-4 Примените и объясните необходимость использования принципа инкапсуляции.
-
-Инкапсуляция - это один из принципов объектно-ориентированного программирования, 
-который означает сокрытие внутренних деталей реализации класса от внешнего мира 
-и предоставление интерфейса для взаимодействия с этим классом. 
 
 Необходимость использования инкапсуляции 
 На моем примере:
@@ -125,25 +115,70 @@ class DieselEngine : public DVS{
         }
 };
 
+
+
 int main(){
 
-    Engine eng;
-    eng.setParams("Saturn", "Bk105M", 60);
-    eng.getParams();
+    // Engine eng;
+    // eng.setParams("Saturn", "Bk105M", 60);
+    // eng.getParams();
 
-    JetEngine eng1;
-    eng1.setJetParams("Neptun","React12",400,500,4012.25);
-    eng1.getJetParams();
+    // JetEngine eng1;
+    // eng1.setJetParams("Neptun","React12",400,500,4012.25);
+    // eng1.getJetParams();
 
-    DVS eng2;
-    eng2.setDVSParams("Uran","AS3",72,200,60);
-    eng2.getDVSParams();
+    // DVS eng2;
+    // eng2.setDVSParams("Uran","AS3",72,200,60);
+    // eng2.getDVSParams();
 
-    DieselEngine eng3;
-    eng3.setDieselParams("Byran","HDF23",152,440,65,7.4);
-    eng3.getDieselParams();
+    // DieselEngine eng3;
+    // eng3.setDieselParams("Byran","HDF23",152,440,65,7.4);
+    // eng3.getDieselParams();
+    JetEngine eng;
+    
+    while(true){
+        cout << "Выберите действие:";
+        cout << "\n1 - Заполнить новый двигатель\n2 - Заполните новый реактивный двигатель";
+        cout << "\n3 - Вывести реактивный двигатель";
+        cout << "\n0 - Выход из программы\n";
+
+        
+
+        int choise; cin >> choise;
+        switch (choise)
+        {
+        case 1:
+            break;
+        case 2:{
+            cout << "\nЗаполните данные для реактивного двигателя:";
+            cout << "\nИмя - "; string name; cin >> name;
+            cout << "Серийный номер - "; string sr; cin >> sr;
+            cout << "Вес - "; int weight; cin >> weight;
+            cout << "Тяга - "; int thrust; cin >> thrust;
+            cout << "Температура выходящих газов - "; int tvx; cin >> tvx;
+            eng.setJetParams(name,sr,weight,thrust,tvx);
+            break;
+        }
+        case 3:{
+            eng.getJetParams();
+            break;
+        }
+            
+
+
+        
+        default:
+            exit(0);
+            break;
+        }
+        
+    }
+
+
 
     cout << endl;
     return 0;
 }
+
+
 

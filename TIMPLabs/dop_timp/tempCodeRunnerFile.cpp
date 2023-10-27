@@ -1,1 +1,1 @@
-
+generateRndNum(arr[i-1]) % (36706-16076+1)

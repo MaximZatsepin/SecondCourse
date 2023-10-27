@@ -38,7 +38,7 @@ void taskA(){
 
     double arrOfVar1[25];
     for(int i = 0; i < 25; i++){
-        arrOfVar1[i] = (double)(rand())/RAND_MAX*(50 + 50) - 50;;
+        arrOfVar1[i] = (double)(rand())/RAND_MAX*(50 + 50) - 50;; /// 36000.0   100000 0.36 36.0 -50.0 -14.0
     }
 
     cout << "[Task 3.a] ";
