@@ -9,6 +9,6 @@
 -  **Lab 6** - _CLASSES AND OBJECTS, ENCAPSULATION, INHERITANCE_
 -------------------------------------------------
 
-> Owner - [Me](https://github.com/wumpochuck)
+> Owner - [Me](https://github.com/wumpochuck) (zLab's)
 > 
 > Collaborator - [Ulyana](https://github.com/Ulyanaaa) (yuLab's)
