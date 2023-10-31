@@ -44,6 +44,7 @@ TreeNode* insert(TreeNode* root, int key, int level) {
 
 // Объод дерева "снизу - вверх"
 void bottomUpTraversal(TreeNode* node) {
+    // Если узел пуст
     if (node == nullptr) {
         return;
     }
@@ -69,7 +70,7 @@ int main() {
 }
 
 
-
+// Генератор псевдослучайных чисел
 int random()
 {
     int rnd =  rand() % (120 - 0 + 1);
