@@ -1,8 +1,6 @@
 /*
 1 Построить двоичное дерево, содержащее n = 18 узлов. Значения ключей в узлах задавать с
 помощью датчика случайных чисел с диапазоном D от 0 до 160
-2 Построить В+ дерево, содержащее n = 18 узлов и имеющее степень m = 5 Значения ключей в узлах
-задавать с помощью датчика случайных чисел с диапазоном D от 0 до 160
 3 Обеспечить обход деревьев «сверху вниз».
 4 Выполнить поиск значения ключа по совпадению.
 */
@@ -23,7 +21,7 @@ void outputArray(int array[], int n);
 Branch* addBranch2Tree(Branch *node, int data);
 Branch* createBT(int arr[], int n);
 void outputBT(Branch *node, int gen);
-bool keyFind(Branch *node, int key);
+bool keyFind(Branch* node, int key, string& path);
 
 
 
@@ -35,25 +33,29 @@ int main(){
     
     fillArray(arr,n);
 
-
     Branch *root = createBT(arr,n);
-
 
     outputBT(root,0);
 
     outputArray(arr,n);
 
-    cout << "\nLooking for key " << arr[5];
-    bool found = keyFind(root, arr[5]);
+    string path;
+    bool found = keyFind(root, arr[5], path);
     
-    if (found) { cout << "\nKey found!"; }
-    else cout << "\nKey not found.";
+    if (found) {
+        cout << "Key " << arr[5] << " found! Path: " << path << endl;
+    } else {
+        cout << "Key " << arr[5] << " not found." << endl;
+    }
 
-    cout << "\n\nLooking for key " << arr[4] + 1;
-    found = keyFind(root, arr[4] + 1);
+    string path1;
+    bool found1 = keyFind(root, arr[4]+1, path1);
     
-    if (found) { cout << "\nKey found!"; }
-    else cout << "\nKey not found.";
+    if (found1) {
+        cout << "Key " << arr[4]+1 << " found! Path: " << path1 << endl;
+    } else {
+        cout << "Key " << arr[4]+1 << " not found." << endl;
+    }
 
     cout << endl;
 }
@@ -90,7 +92,7 @@ Branch* addBranch2Tree(Branch *node, int data){
 
 // обход дерева сверху вниз
 Branch* createBT(int arr[], int n){
-    Branch *root;
+    Branch *root = nullptr;
 
     for(int i = 0 ; i < n; i++){
         root = addBranch2Tree(root,arr[i]);
@@ -110,23 +112,35 @@ void outputBT(Branch *node, int gen){
     return;
 }
 
-// Поиск значения по совпадению
-// Если ноды нет, ключ не найден
-// Если дата=ключ, ключ найден
-// Вызывать рекурсивно
-bool keyFind(Branch *node, int key) {
+
+bool keyFind(Branch* node, int key, string& path) {
     if (!node) {
-        return false; // Ключ не найден
+        return false;
     }
-
+    
     if (node->data == key) {
-        return true; // Ключ найден
+        // path = to_string(node->data);
+        path = "Key";
+        return true;
     }
-
-    bool foundInLeft = keyFind(node->left, key);
-    bool foundInRight = keyFind(node->right, key);
-
-    return foundInLeft || foundInRight; // Если ключ найден в левом или правом поддереве, вернуть true
+    
+    string leftPath, rightPath;
+    bool foundInLeft = keyFind(node->left, key, leftPath);
+    bool foundInRight = keyFind(node->right, key, rightPath);
+    
+    if (foundInLeft) {
+        path = to_string(node->data) + " -> " + leftPath;
+        path = "Left -> " + leftPath;
+        return true;
+    }
+    
+    if (foundInRight) {
+        path = to_string(node->data) + " -> " + rightPath;
+        path = "Right -> " + rightPath;
+        return true;
+    }
+    
+    return false;
 }
 
 
