@@ -1,141 +1,153 @@
-/*
-1 Построить двоичное дерево, содержащее n = 18 узлов. Значения ключей в узлах задавать с
-помощью датчика случайных чисел с диапазоном D от 0 до 160
-2 Построить В+ дерево, содержащее n = 18 узлов и имеющее степень m = 5 Значения ключей в узлах
-задавать с помощью датчика случайных чисел с диапазоном D от 0 до 160
-3 Обеспечить обход деревьев «сверху вниз».
-4 Выполнить поиск значения ключа по совпадению.
-*/
 #include <iostream>
-#include <time.h>
-// #include <string>
 using namespace std;
 
-struct Branch{ // Node
-    int data;
-    struct Branch *left;
-    struct Branch *right;
+class Node {
+  int *keys; // keys
+  int t; // хуй знает че это, prob. m
+  Node **C; // children
+  int n; // key_num
+  bool leaf; // is_leaf
+
+    public:
+  Node(int t1, bool leaf1);
+
+  void insertNonFull(int k);
+  void splitChild(int i, Node *y);
+  void display();
+
+  friend class BTree;
 };
 
+class BTree {
+  Node *root;
+  int t;
 
-void fillArray(int array[], int n);
-void outputArray(int array[], int n);
-Branch* addBranch2Tree(Branch *node, int data);
-Branch* createBT(int arr[], int n);
-void outputBT(Branch *node, int gen);
-bool keyFind(Branch *node, int key);
+   public:
+  BTree(int _t) {
+    root = NULL;
+    t = _t;
+  }
 
+  void display() {
+    if (root != NULL)
+      root->display();
+  }
 
+  void insert(int k);
+};
 
-int main(){
-    srand(time(nullptr));
-    
-    int n = 10 ;
-    int arr[n];
-    
-    fillArray(arr,n);
+Node::Node(int t1, bool leaf1) {
+  t = t1;
+  leaf = leaf1;
 
+  keys = new int[2 * t - 1];
+  C = new Node *[2 * t];
 
-    Branch *root = createBT(arr,n);
-
-
-    outputBT(root,0);
-
-    outputArray(arr,n);
-
-    // cout << "\nLooking for key " << arr[5];
-    // bool found = keyFind(root, arr[5]);
-    
-    // if (found) { cout << "\nKey found!"; }
-    // else cout << "\nKey not found.";
-
-    // cout << "\n\nLooking for key " << arr[4] + 1;
-    // found = keyFind(root, arr[4] + 1);
-    
-    // if (found) { cout << "\nKey found!"; }
-    // else cout << "\nKey not found.";
-
-    cout << endl;
+  n = 0;
 }
 
-void fillArray(int array[], int n){
-    for(int i = 0; i < n; i++){
-        array[i] = rand() % 160;
-    }
+void Node::display() {
+//   int i;
+  for (int i = 0; i < n; i++) { // n = 5
+    if (leaf == false) // i = 0,1,2,3,4
+      C[i]->display();
+    cout << " " << keys[i];
+  }
+  if (leaf == false) C[n]->display();
+
+//   if (leaf == false)
+    // C[i]->display();
+
 }
 
-void outputArray(int array[], int n){
-    for(int i = 0; i < n; i++){
-        cout << array[i] << " ";
-    }
-    cout << endl;
+void BTree::insert(int k) { // k = data
+  if (root == NULL) { // da
+    root = new Node(t, true);
+    root->keys[0] = k;
+    root->n = 1; // n = countsOfData
+  } else {
+    if (root->n == 2 * t - 1) {
+      Node *s = new Node(t, false);
+
+      s->C[0] = root;
+
+      s->splitChild(0, root);
+
+      int i = 0;
+      if (s->keys[0] < k)
+        i++;
+      s->C[i]->insertNonFull(k);
+
+      root = s;
+    } else
+      root->insertNonFull(k);
+  }
 }
 
-Branch* addBranch2Tree(Branch *node, int data){
+void Node::insertNonFull(int k) { // k = data
+  int i = n - 1;  // index = keysCount - 1
 
-    if(!node){
-        node = new Branch;
-        node->data = data;
-        node->left = NULL;
-        node->right = NULL;
-        return node;
-    }
-    if(data < node->data){
-        node->left = addBranch2Tree(node->left,data);
-    } else {
-        node->right = addBranch2Tree(node->right,data);
-    }
-    return node;
-}
-
-// обход дерева сверху вниз
-Branch* createBT(int arr[], int n){
-    Branch *root;
-
-    for(int i = 0 ; i < n; i++){
-        root = addBranch2Tree(root,arr[i]);
-    }
-    return root;
-}
-
-void outputBT(Branch *node, int gen){
-    if(!node){
-        return;
-    }
-    cout << "gen: " << gen++ << ", data: " << node->data << endl;
-
-    outputBT(node->left,gen);
-    outputBT(node->right,gen);
-
-    return;
-}
-
-// Поиск значения по совпадению
-// Если ноды нет, ключ не найден
-// Если дата=ключ, ключ найден
-// Вызывать рекурсивно
-bool keyFind(Branch *node, int key) {
-    if (!node) {
-        return false; // Ключ не найден
+  if (leaf == true) {
+    while (i >= 0 && keys[i] > k) { // Двигаем всё в конец
+      keys[i + 1] = keys[i]; // "всё" - то, что больше data
+      i--;
     }
 
-    if (node->data == key) {
-        return true; // Ключ найден
+    keys[i + 1] = k; // вставляем дату
+    n = n + 1; // keysCount += 1
+  } else {                          // Если не лист
+    while (i >= 0 && keys[i] > k) // двигаем индекс в начало
+      i--;
+
+    if (C[i + 1]->n == 2 * t - 1) { // если 
+      splitChild(i + 1, C[i + 1]); // поделить дебилов
+            // Передается индекс (0 и children[0] указатель)
+      if (keys[i + 1] < k) 
+        i++;
     }
-
-    bool foundInLeft = keyFind(node->left, key);
-    bool foundInRight = keyFind(node->right, key);
-
-    return foundInLeft || foundInRight; // Если ключ найден в левом или правом поддереве, вернуть true
+    C[i + 1]->insertNonFull(k);
+  }
 }
 
 
-/*
+void Node::splitChild(int i, Node *y) {
+  Node *z = new Node(y->t, y->leaf);
+  z->n = t - 1;
 
-                                90
-                            49      96
-                         45   -    81     105
-                        3  -     -   -   -   119
-                      -   5                 -   -
+  for (int j = 0; j < t - 1; j++) // ------------
+    z->keys[j] = y->keys[j + t];
 
-*/
+  if (y->leaf == false) {
+    for (int j = 0; j < t; j++)
+      z->C[j] = y->C[j + t];
+  }
+
+  y->n = t - 1;
+  for (int j = n; j >= i + 1; j--)
+    C[j + 1] = C[j];
+
+  C[i + 1] = z;
+
+  for (int j = n - 1; j >= i; j--)
+    keys[j + 1] = keys[j];
+
+  keys[i] = y->keys[t - 1];
+  n = n + 1;
+}
+
+int main() {
+  BTree t(1); // t = 1, root = NULL
+  t.insert(8);
+  t.insert(9);
+  t.insert(10);
+  t.insert(11);
+  t.insert(15);
+  t.insert(16);
+  t.insert(17);
+  t.insert(18);
+  t.insert(20);
+  t.insert(23);
+
+  cout << "The B-tree is: \n";
+  t.display();
+}
