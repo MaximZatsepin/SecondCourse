@@ -113,8 +113,9 @@ void Node::insertNonFull(int k) { // k = data
 void Node::splitChild(int i, Node *y) {
   Node *z = new Node(y->t, y->leaf);
   z->n = t - 1;
+  cout << "\n z.n is " << z->n << "\n t is " << t;
 
-  for (int j = 0; j < t - 1; j++) // ------------
+  for (int j = 0; j < t - 1; j++) 
     z->keys[j] = y->keys[j + t];
 
   if (y->leaf == false) {
@@ -137,16 +138,20 @@ void Node::splitChild(int i, Node *y) {
 
 int main() {
   BTree t(1); // t = 1, root = NULL
+  cout << "\n\nTest 1\n";
   t.insert(8);
+  cout << "\n\nTest 2\n";
   t.insert(9);
+  cout << "\n\nTest 3\n";
   t.insert(10);
+  cout << "\n\nTest 4\n";
   t.insert(11);
+  cout << "\n\nTest 5\n";
   t.insert(15);
   t.insert(16);
   t.insert(17);
   t.insert(18);
   t.insert(20);
-  t.insert(23);
 
   cout << "The B-tree is: \n";
   t.display();
