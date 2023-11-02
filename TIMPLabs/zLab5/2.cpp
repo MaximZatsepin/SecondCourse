@@ -35,8 +35,8 @@ struct Node {
         t = t1;
         is_leaf = leaf1;
 
-        key = new int[2 * t - 1];
-        child = new Node *[2 * t];
+        key = new int[2 * t - 2];
+        child = new Node *[2 * t - 1];
 
         key_num = 0;
     }
