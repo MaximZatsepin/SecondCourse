@@ -9,19 +9,19 @@
 // #include <string>
 using namespace std;
 
-struct Branch{ // Node
+struct Node{ // Node
     int data;
-    struct Branch *left;
-    struct Branch *right;
+    struct Node *left;
+    struct Node *right;
 };
 
 
 void fillArray(int array[], int n);
 void outputArray(int array[], int n);
-Branch* addBranch2Tree(Branch *node, int data);
-Branch* createBT(int arr[], int n);
-void outputBT(Branch *node, int gen);
-bool keyFind(Branch* node, int key, string& path);
+Node* addNode2Tree(Node *node, int data);
+Node* createBT(int arr[], int n);
+void outputBT(Node *node, int gen);
+bool keyFind(Node* node, int key, string& path);
 
 
 
@@ -33,7 +33,7 @@ int main(){
     
     fillArray(arr,n);
 
-    Branch *root = createBT(arr,n);
+    Node *root = createBT(arr,n);
 
     outputBT(root,0);
 
@@ -73,34 +73,34 @@ void outputArray(int array[], int n){
     cout << endl;
 }
 
-Branch* addBranch2Tree(Branch *node, int data){
+Node* addNode2Tree(Node *node, int data){
 
     if(!node){
-        node = new Branch;
+        node = new Node;
         node->data = data;
         node->left = NULL;
         node->right = NULL;
         return node;
     }
     if(data < node->data){
-        node->left = addBranch2Tree(node->left,data);
+        node->left = addNode2Tree(node->left,data);
     } else {
-        node->right = addBranch2Tree(node->right,data);
+        node->right = addNode2Tree(node->right,data);
     }
     return node;
 }
 
 // обход дерева сверху вниз
-Branch* createBT(int arr[], int n){
-    Branch *root = nullptr;
+Node* createBT(int arr[], int n){
+    Node *root = nullptr;
 
     for(int i = 0 ; i < n; i++){
-        root = addBranch2Tree(root,arr[i]);
+        root = addNode2Tree(root,arr[i]);
     }
     return root;
 }
 
-void outputBT(Branch *node, int gen){
+void outputBT(Node *node, int gen){
     if(!node){
         return;
     }
@@ -113,7 +113,7 @@ void outputBT(Branch *node, int gen){
 }
 
 
-bool keyFind(Branch* node, int key, string& path) {
+bool keyFind(Node* node, int key, string& path) {
     if (!node) {
         return false;
     }
