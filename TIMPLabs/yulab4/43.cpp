@@ -1,267 +1,111 @@
-// #include <iostream>
-// using namespace std;
-
-
-// const int max_size_lake = 50; // Максимальные размеры озера
-// const int INF = 1e9;  // "Бесконечность" для инициализации расстояний
-
-
-
-
-// // Очередь для BFS
-// int queue[max_size_lake * max_size_lake][2];
-// int front, rear;
-
-// void bfs(int lake[][max_size_lake], int n, int m);
-
-
-// int main() {
-
-//     // // Ввод размеров озера и данных о клетках
-//     // cout << "Enter lake size(<50):"; cin >> n;
-//     // while (n > 50){cout << "Enter lake size(<50): "; cin >> n;}
-//     // for (int i = 0; i < m; i++) {
-//     //     for (int j = 0; j < m; j++) {
-//     //         cin >> lake[i][j];
-//     //     }
-//     // }
-//     // cout << "Enter raft size(<5): "; cin >> m;
-//     // while(m > 5){cout << "Enter raft size(<5): "; cin >> m;}
-
-//     // Тестовые данные. Размеры озера 10*10
-
-//     int n = 10;
-//     int lake[max_size_lake][max_size_lake] = {{0,0,0,0,0,0,0,0,0,0},
-//                                              {0,0,0,1,0,0,0,1,0,0},
-//                                              {1,0,0,0,0,0,0,1,0,0},
-//                                              {0,0,0,0,0,0,0,0,0,0},
-//                                              {0,0,1,0,0,1,0,0,0,0},
-//                                              {0,1,1,0,0,0,0,0,0,1},
-//                                              {0,0,0,0,0,0,0,0,1,1},
-//                                              {0,0,0,1,1,0,0,0,0,0},
-//                                              {0,0,0,0,0,0,0,0,0,0},
-//                                              {0,1,0,0,0,0,1,0,0,0}};
-
-//     int m = 1;
-
-   
-
-
-//     // Выполняем поиск в ширину
-//     bfs(lake, n, m);
-
-//     // Выводим кратчайший путь
-//     cout << "Кратчайший путь до правого нижнего угла: " << path[m - 1][n - 1] << endl;
-
-// }
-
-// void bfs(int lake[][max_size_lake], int n, int m) {
-//     // Для просмотра соседних клеток
-//     int dx[] = {1, -1, 0, 0};
-//     int dy[] = {0, 0, 1, -1};
-
-//     int path[max_size_lake][max_size_lake]; // Матрица пути
-//     // Инициализация матрицы пути
-//     for (int i = 0; i < m; i++) {
-//         for (int j = 0; j < n; j++) {
-//             path[i][j] = INF;
-//         }
-//     }
-
-//     // Инициализация очереди
-//     front = rear = -1;
-
-//     path[0][0] = 0;
-//     enqueue(0, 0);
-
-//     while (front != -1) {
-//         int x, y;
-//         dequeue(x, y);
-
-//         for (int i = 0; i < 4; i++) {
-//             int nx = x + dx[i];
-//             int ny = y + dy[i];
-
-//             if (isValid(nx, ny) && path[nx][ny] == INF) {
-//                 path[nx][ny] = path[x][y] + 1;
-//                 enqueue(nx, ny);
-//             }
-//         }
-//     }
-// }
-
-
-// void enqueue(int x, int y) {
-//     if (front == -1) {
-//         front = rear = 0;
-//         queue[rear][0] = x;
-//         queue[rear][1] = y;
-//     } else {
-//         rear++;
-//         queue[rear][0] = x;
-//         queue[rear][1] = y;
-//     }
-// }
-
-// void dequeue(int &x, int &y) {
-//     x = queue[front][0];
-//     y = queue[front][1];
-//     if (front == rear) {
-//         front = rear = -1;
-//     } else {
-//         front++;
-//     }
-// }
-
-// // Проверка, является ли клетка в пределах озера и не является ли островом
-// bool isValid(int x, int y) {
-//     return x >= 0 && x < m && y >= 0 && y < n && lake[x][y] != 1;
-// }
-
-
-
-
-
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
-const int MAX_M = 100; // Максимальные размеры озера
-const int MAX_N = 100; // Максимальные размеры озера
-const int INF = 1e9;  // "Бесконечность" для инициализации расстояний
+void addFields(int lake[][100],int m, int n);
+void outputArray(int m, int array[]);
+void outputMatrix(int matrix[][100],int m, int n);
+void waveAlgorithm(int lake[][100],int m, int n);
+bool isCellConsist(int lake[100][100],int i, int j, int m, int n);
 
-int lake[MAX_M][MAX_N]; // Матрица озера
-int path[MAX_M][MAX_N]; // Матрица пути
-int m, n;               // Размеры озера
+// Структура ячейки для стека
+struct Cell{
+    int i;
+    int j;
+    int dist;
+};
 
-// Очередь для BFS
-int queue[MAX_M * MAX_M][2];
-int front, rear;
+// Перебор клеток сверху/снизу/слева/справа
+const int di[] = {0,0,-1,1};
+const int dj[] = {-1,1,0,0};
 
 
-void output_queue()
-{
-    for (int i = 0; i < 100; i++)
-    {
-        cout << queue[i][0] << queue[i][1] << " ";
+
+int main() {
+    srand(time(nullptr));
+
+    //int m = 8, n = 8;
+    int m, n; cout << "m,n is: "; cin >> m >> n;
+    int lake[100][100];
+
+    addFields(lake,m,n);
+
+    cout << "-----------------------\n";
+    outputMatrix(lake,m,n);
+    cout << "-----------------------\n";
+
+    waveAlgorithm(lake,m,n);
+
+    cout << "-----------------------\n";
+    lake[0][0] = 0;
+    outputMatrix(lake,m,n);
+    cout << "-----------------------\n";
+
+    return 0;
+}
+
+void addFields(int lake[][100],int m, int n){
+    // adds islands
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            int probability = rand() % 11;
+            if (probability <= 2) {
+                lake[i][j] = -1;
+            }else lake[i][j] = 0;
+        }
+    }
+    lake[0][0] = 0;
+    lake[m - 1][n - 1] = 0;
+}
+
+void outputArray(int m, int array[]) {
+    for (int i = 0; i < m; i++) {
+        cout << array[i] << " ";
     }
     cout << endl;
 }
 
-void output_path()
-{
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cout << path[i][j] <<  " ";
+void outputMatrix(int matrix[][100],int m, int n){
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            cout << setw(2) << matrix[i][j] << " ";
         }
         cout << endl;
     }
-    cout << endl;
 }
 
-// Добавление в очередь
-void enqueue(int x, int y) {
-
-    if (front == -1) {
-        front = rear = 0;
-        queue[rear][0] = x;
-        queue[rear][1] = y;
-    } else {
-        rear++;
-        queue[rear][0] = x;
-        queue[rear][1] = y;
-    }
-   output_queue();
+bool isCellConsist(int lake[][100],int  i, int j, int m, int n){
+    return i >= 0 && i < m && j >= 0 && j < n && lake[i][j] == 0;
 }
 
+void waveAlgorithm(int lake[][100],int m, int n){
+    Cell queue[m*n+1];
+    int qStart = 0, qEnd = 1;
+    // queue[qStart] = {0,0,0};
+    queue[qStart].dist = 0;
+    queue[qStart].i = 0;
+    queue[qStart].j = 0;
+    
 
-// Проверка очереди (извлечение)
-void dequeue(int &x, int &y) {
-    // Получаем xy из ячейки с индексом front
-    x = queue[front][0];
-    y = queue[front][1];
-    // Если front равен rear, то очередь пуста
-    if (front == rear) {
-        front = rear = -1;
-    }
-    // Иначе двигаем front на след. ячейку 
-    else {
-        front++;
-    }
-    output_queue();
-}
+    while(qStart < qEnd){
+        Cell curr = queue[qStart++];
 
-// Проверка, является ли клетка в пределах озера и не является ли островом
-bool isValid(int x, int y) {
-    return x >= 0 && x < m && y >= 0 && y < n && lake[x][y] != 1;
-}
-
-void bfs() {
-    int dx[] = {1, -1, 0, 0};
-    int dy[] = {0, 0, 1, -1};
-
-    // Инициализация матрицы пути
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            if (lake[i][j] == 1)
-            {
-                path[i][j] = -1;
-            }
-            else{
-                path[i][j] = INF;
-            }
-            
+        if(curr.i == m - 1 && curr.j == n - 1){
+            cout << "\nShortest distance from UpLeft to DonwRight is " << curr.dist << endl;
+            return;
         }
-    }
 
-    // Обозначаем что очередь пуста
-    front = rear = -1;
-    path[0][0] = 0;
-    enqueue(0, 0);
-
-    while (front != -1) {
-        int x, y;
-        dequeue(x, y);
-
-        for (int i = 0; i < 4; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-
-            if (isValid(nx, ny) && path[nx][ny] == INF) {
-                path[nx][ny] = path[x][y] + 1;
-
-                output_path();
-                
-                enqueue(nx, ny);
+        for(int k = 0; k < 4; k++){
+            int I = curr.i + di[k], J = curr.j + dj[k];
+            if(isCellConsist(lake, I, J, m, n)){
+                lake[I][J] = curr.dist + 1;
+                queue[qEnd].dist = curr.dist + 1;
+                queue[qEnd].i = I;
+                queue[qEnd++].j = J;
+                // queue[qEnd++] = {I,J,curr.dist + 1};
             }
         }
     }
-}
-
-int main() {
-    // Ввод размеров озера и данных о клетках
-    cin >> m >> n;
-    // for (int i = 0; i < m; i++) {
-    //     for (int j = 0; j < n; j++) {
-    //         cin >> lake[i][j];
-    //     }
-    // }
-
-    int lake[m][n] = {{0,0,0,0,0,0,0,0,0,0},
-                                             {0,0,0,1,0,0,0,1,0,0},
-                                             {1,1,0,0,1,1,0,1,0,0},
-                                             {0,0,0,1,1,1,1,1,1,1},
-                                             {0,0,1,0,1,1,0,0,0,0},
-                                             {0,1,1,0,0,0,0,0,0,1},
-                                             {0,0,0,0,0,0,0,0,1,1},
-                                             {0,0,0,1,1,0,0,0,0,0},
-                                             {0,0,0,0,0,0,0,0,0,0},
-                                             {0,1,0,0,0,0,1,0,0,0}};
-
-    // Выполняем поиск в ширину
-    bfs();
-
-    // Выводим кратчайший путь
-    cout << "Кратчайший путь до правого нижнего угла: " << path[m - 1][n - 1] << endl;
+    cout << "\npath not found!" << endl;
 }
