@@ -2,18 +2,18 @@
 using namespace std;
 
 class Node {
-  int *keys; // keys
-  int t; // хуй знает че это, prob. m
-  Node **C; // children
-  int n; // key_num
-  bool leaf; // is_leaf
+  int *keys;
+  int t;
+  Node **C;
+  int n;
+  bool leaf;
 
-    public:
+   public:
   Node(int t1, bool leaf1);
 
   void insertNonFull(int k);
   void splitChild(int i, Node *y);
-  void display();
+  void display(int gen);
 
   friend class BTree;
 };
@@ -30,7 +30,7 @@ class BTree {
 
   void display() {
     if (root != NULL)
-      root->display();
+      root->display(0);
   }
 
   void insert(int k);
@@ -40,33 +40,41 @@ Node::Node(int t1, bool leaf1) {
   t = t1;
   leaf = leaf1;
 
-  keys = new int[2 * t - 1];
-  C = new Node *[2 * t];
+  keys = new int[4];//2 * t - 1];
+  C = new Node *[5];//2 * t];
 
   n = 0;
 }
 
-void Node::display() {
-//   int i;
-  for (int i = 0; i < n; i++) { // n = 5
-    if (leaf == false) // i = 0,1,2,3,4
-      C[i]->display();
-    cout << " " << keys[i];
+void Node::display(int gen) {
+  cout << "gen " <<gen<< ", Node keys: ";
+  for(int i = 0; i < 4; i++){
+      cout << keys[i] << " ";
   }
-  if (leaf == false) C[n]->display();
+  cout << endl; 
+  if(leaf == false){
+    for(int i = 0 ; i < 5; i++){
+      if(C[i] != NULL)C[i]->display(gen + 1);
+      else cout << "NULL" << endl;
+    } 
+  }
+  // for (i = 0; i < n; i++) {
+  //   if (leaf == false)
+  //     C[i]->display();
+  //   cout << " " << keys[i];
+  // }
 
-//   if (leaf == false)
-    // C[i]->display();
-
+  // if (leaf == false)
+  //   C[i]->display();
 }
 
-void BTree::insert(int k) { // k = data
-  if (root == NULL) { // da
+void BTree::insert(int k) {
+  if (root == NULL) {
     root = new Node(t, true);
     root->keys[0] = k;
-    root->n = 1; // n = countsOfData
+    root->n = 1;
   } else {
-    if (root->n == 2 * t - 1) {
+    if (root->n == 4){//2 * t - 1) {
       Node *s = new Node(t, false);
 
       s->C[0] = root;
@@ -84,25 +92,25 @@ void BTree::insert(int k) { // k = data
   }
 }
 
-void Node::insertNonFull(int k) { // k = data
-  int i = n - 1;  // index = keysCount - 1
+void Node::insertNonFull(int k) {
+  int i = n - 1;
 
   if (leaf == true) {
-    while (i >= 0 && keys[i] > k) { // Двигаем всё в конец
-      keys[i + 1] = keys[i]; // "всё" - то, что больше data
+    while (i >= 0 && keys[i] > k) {
+      keys[i + 1] = keys[i];
       i--;
     }
 
-    keys[i + 1] = k; // вставляем дату
-    n = n + 1; // keysCount += 1
-  } else {                          // Если не лист
-    while (i >= 0 && keys[i] > k) // двигаем индекс в начало
+    keys[i + 1] = k;
+    n = n + 1;
+  } else {
+    while (i >= 0 && keys[i] > k)
       i--;
 
-    if (C[i + 1]->n == 2 * t - 1) { // если 
-      splitChild(i + 1, C[i + 1]); // поделить дебилов
-            // Передается индекс (0 и children[0] указатель)
-      if (keys[i + 1] < k) 
+    if (C[i + 1]->n == 2 * t - 1) {
+      splitChild(i + 1, C[i + 1]);
+
+      if (keys[i + 1] < k)
         i++;
     }
     C[i + 1]->insertNonFull(k);
@@ -113,9 +121,8 @@ void Node::insertNonFull(int k) { // k = data
 void Node::splitChild(int i, Node *y) {
   Node *z = new Node(y->t, y->leaf);
   z->n = t - 1;
-  cout << "\n z.n is " << z->n << "\n t is " << t;
 
-  for (int j = 0; j < t - 1; j++) 
+  for (int j = 0; j < t - 1; j++)
     z->keys[j] = y->keys[j + t];
 
   if (y->leaf == false) {
@@ -136,23 +143,38 @@ void Node::splitChild(int i, Node *y) {
   n = n + 1;
 }
 
-int main() {
-  BTree t(1); // t = 1, root = NULL
-  cout << "\n\nTest 1\n";
-  t.insert(8);
-  cout << "\n\nTest 2\n";
-  t.insert(9);
-  cout << "\n\nTest 3\n";
-  t.insert(10);
-  cout << "\n\nTest 4\n";
-  t.insert(11);
-  cout << "\n\nTest 5\n";
-  t.insert(15);
-  t.insert(16);
-  t.insert(17);
-  t.insert(18);
-  t.insert(20);
 
-  cout << "The B-tree is: \n";
-  t.display();
+void outputArray(int arr[],int n){
+  for(int i = 0; i < n; i++){
+    cout << arr[i] << " ";
+  }
+  cout << endl;
+}
+
+int main() {
+  // BTree t(1);
+  // t.insert(8);
+  // t.insert(9);
+  // t.insert(10);
+  // t.insert(11);
+  // t.insert(15);
+  // t.insert(16);
+  // t.insert(17);
+  // t.insert(18);
+  // t.insert(20);
+  // t.insert(23);
+  int test1Arr[18] = {16, 146, 144, 23, 141, 159, 122, 8, 48, 112, 56, 88, 32, 98, 132, 75, 31, 116};
+  cout << "\nTest Array: "; outputArray(test1Arr,18);
+
+  BTree testTree(4);
+  for(int i = 0; i < 18; i++){
+      cout << "Num " << test1Arr[i] << " added, " << endl; 
+      testTree.insert(test1Arr[i]);
+      cout <<"\n---------\n";
+      testTree.display();
+      cout <<"\n---------\n";
+  }
+
+  cout << "\n\n\nThe B-tree is: \n";
+  testTree.display();
 }
