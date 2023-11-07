@@ -13,6 +13,8 @@
 using namespace std;
 
 bool isValidSubstring(const string& str) {
+
+    // Проверяем рядом стоящие подстроки длиной 3
     for (size_t i = 0; i < str.length() - 2; ++i) {
         if (str.substr(i, 3) == str.substr(i + 3, 3)) {
             return false;
@@ -27,7 +29,9 @@ int main() {
 
     time_t t;
     srand(time(&t));
+
     int n; cout<<"Enter string lenght: "; cin >> n;
+    // Генерация рандомной строки
     for (int i = 0; i < n; ++i) {
         int random = rand()%3;
         if (random==0){randomString += 'A';}
@@ -38,7 +42,7 @@ int main() {
     cout << "\n[Task 3] - strings\n" << endl;
 
     cout << "Generated random string (lenght " << n<<  ") : " << randomString << "\n\n" << endl;
-
+    // Берем каждую подстроку длиной 100 и отправляем на проверку
     for (int i = 0; i <= randomString.length() - 100; ++i) {
         if (isValidSubstring(randomString.substr(i, 100))) {
             cout << "Substring found at position " << i << ": " << randomString.substr(i, 100) << endl;
@@ -47,5 +51,5 @@ int main() {
     }
 
 
-    cout << "No such substring exists in the generated string." << endl;
+    cout << "The required substring was not found" << endl;
 }
