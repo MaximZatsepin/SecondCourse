@@ -8,6 +8,7 @@
 
 
 #include <iostream>
+#include <iomanip>
 #include <chrono>   // Для измерения времени выполнения
 using namespace std;
 
@@ -40,7 +41,7 @@ int main() {
         
         // Вывод кратчайших расстояний
         for (int i = 0; i < count_vertices; ++i) {
-            cout << distances[i] << " ";
+            cout  << setw(2)<< distances[i] << " ";
         }
         cout << endl;
     }
