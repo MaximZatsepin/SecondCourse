@@ -1,8 +1,15 @@
 // Алгоритм Дейкстры
 #include <iostream>
+#include <chrono>
+// auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
+// auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
+// cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд";
+// start = chrono::steady_clock::now(); // Снова запоминаем время начала работы программы
 using namespace std;
 
 int main(){
+    auto start = chrono::steady_clock::now();
+    int steps = 0;
     int n = 8;
     // definition for matrix of links
     int graph[100][100] = {{0,3,0,0,2,1,0,5},
@@ -46,6 +53,7 @@ int main(){
                 currIndex = i;
             }
         }
+        steps += 1;
     }
     
     cout << "\nShortest distances: ";
@@ -53,4 +61,7 @@ int main(){
         cout << ranges[i] << " ";
     }
 
+    auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
+    cout << "Time delay: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " microsec";
+    cout << " Steps: " << steps;
 }
