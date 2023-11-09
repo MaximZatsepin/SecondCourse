@@ -10,7 +10,6 @@ void output_matrix(int matrix[][100],int m, int n);
 void solution(int lake[][100],int m, int n);
 bool occupied_or_not(int lake[100][100],int i, int j, int m, int n);
 
-void stars_path(char path[][100], int lake[][100], int m, int n);
 
 // Структура ячейки для стека
 struct Cell{

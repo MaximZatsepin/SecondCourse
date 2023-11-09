@@ -7,6 +7,7 @@
 */
 
 #include <iostream>
+#include <iomanip>
 #include <chrono>   // Для измерения времени выполнения
 using namespace std;
 
@@ -86,7 +87,7 @@ void output_distances(int distances[][max_vertices])
     {
         for (int j = 0; j < max_vertices; j ++)
         {
-            cout << distances[i][j] << " ";
+            cout << setw(2) << distances[i][j] << " ";
         }
         cout << endl;
     }

@@ -96,7 +96,7 @@ void output_maze(int** maze, int height, int width){
 
 void create_maze(int** maze, int height, int width){
 	int x, y, c, a; 
-	bool b;
+	
 	// Заполняем весь массив землей(ground), в которой будем "прорывать" тоннели
 	for(int i = 0; i < height; i++) 
 		for(int j = 0; j < width; j++)

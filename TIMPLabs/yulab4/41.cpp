@@ -69,28 +69,20 @@ void solution(int graph[][count_vertices], int lvl_vertices, int distances[])
     
     for (int i = 0; i < count_vertices; ++i) 
     {
-        int minDistance = INF;
+        int min_distance = INF;
         int index;
-
-        // cout << "Distance:" << endl;
-        // for (int i = 0; i < count_vertices; i++)
-        // {
-        //     cout  << distances[i] << " ";
-        // }
-        // cout << endl;
 
         // Найдем вершину с минимальным расстоянием
         for (int j = 0; j < count_vertices; ++j) {
-            if (!visited[j] && distances[j] < minDistance) 
+            if (!visited[j] && distances[j] < min_distance) 
             {
-                minDistance = distances[j];
+                min_distance = distances[j];
                 index = j;
             }
         }
 
          
         visited[index] = true;
-        //cout << "Rassmatrivenaya vershina: " << index << endl;
 
         // Обновляем расстояния до смежных вершин
         for (int i = 0; i < count_vertices; ++i) {
