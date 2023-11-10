@@ -32,7 +32,7 @@ int main() {
     
     int distances[count_vertices];    // Массив для хранения расстояния от 1 до n вершины
     cout << "\n[Task 1 - Dijkstra's algorithm] \n\n";
-    
+        
     // Стартовая точка отсчета времени
     auto start = chrono::steady_clock::now();
     for (int lvl_vertices = 0; lvl_vertices < count_vertices; lvl_vertices++)
