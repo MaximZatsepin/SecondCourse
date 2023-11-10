@@ -103,7 +103,7 @@ void create_maze(int** maze, int m, int n){
                     // Прорываем тоннель
                     maze[y-1][x] = tunnel;
 					maze[y-2][x] = tunnel;
-                    // output(maze, m, n);
+                    output(maze, m, n);
                     // Передвигаем крота вверх на 2 клетки
 					y-=2;
 				}
@@ -112,7 +112,7 @@ void create_maze(int** maze, int m, int n){
 					if(maze[y+2][x] == ground){
 					maze[y+1][x] = tunnel;
 					maze[y+2][x] = tunnel;
-                    // output(maze, m, n);
+                    output(maze, m, n);
 					y+=2;
 				}
                 // Влево
@@ -120,7 +120,7 @@ void create_maze(int** maze, int m, int n){
 					if(maze[y][x-2] == ground){ 
 					maze[y][x-1] = tunnel;
 					maze[y][x-2] = tunnel;
-                    // output(maze, m, n);
+                    output(maze, m, n);
 					x-=2;
 				}
                 // Вправо
@@ -128,7 +128,7 @@ void create_maze(int** maze, int m, int n){
 					if(maze[y][x+2] == ground){
 					maze[y][x+1] = tunnel;
 					maze[y][x+2] = tunnel;
-                    // output(maze, m, n);
+                    output(maze, m, n);
 					x+=2;
 				}
 			}

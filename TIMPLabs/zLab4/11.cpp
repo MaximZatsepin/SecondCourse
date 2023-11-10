@@ -1,5 +1,5 @@
 // Алгоритм Флойда
-// https://www.youtube.com/watch?v=ipWZ-d1l00s
+
 #include <iostream>
 #include <chrono>
 using namespace std;
