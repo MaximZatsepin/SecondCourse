@@ -60,7 +60,7 @@ int main(){
 void output(int** maze, int m, int n){
 	for(int i = 0; i < m; i++){
 		for(int j = 0; j < n; j++){
-            if(maze[i][j] == ground) cout << setw(2) << "##";
+            if(maze[i][j] == ground) cout << setw(2) << "■■";
             else if(maze[i][j] == tunnel) cout << setw(2) << "  ";
             else if(maze[i][j] == -2) cout << setw(2) << ". ";
             else cout << setw(2) << maze[i][j];
