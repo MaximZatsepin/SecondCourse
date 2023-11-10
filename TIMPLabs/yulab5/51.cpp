@@ -2,13 +2,17 @@
 Вариант 8
 1 Построить двоичное дерево, содержащее n = 14 узлов. Значения ключей в узлах задавать с
 помощью датчика случайных чисел с диапазоном D от 0 до 120
+3 Обеспечить обход деревьев «снизу вверх».
+4 Выполнить поиск значения ключа по близости снизу.
 */
 
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 int random();
 
+int INT_MIN = -10000;
 
 // Структура узла, у него есть левое и правое поддеревья, а так же я запоминаю его уровень 
 struct TreeNode {
@@ -24,7 +28,26 @@ struct TreeNode {
     TreeNode(int val, int lvl) : key(val), left(nullptr), right(nullptr), level(lvl) {}
 };
 
-// Рекурсивная вставка уздла в дереве
+// Рекурсивный поиск значения ключа по близости снизу
+int findClosestBelow(TreeNode* root, int target) {
+    int closestBelow = INT_MIN; // Изначально устанавливаем в минимальное значение
+
+    while (root != nullptr) {
+        if (root->key <= target) {
+            // Обновляем ближайшее значение снизу
+            closestBelow = max(closestBelow, root->key);
+            // Переходим вправо, так как значение в узле меньше искомого
+            root = root->right;
+        } else {
+            // Переходим влево, так как значение в узле больше или равно искомому
+            root = root->left;
+        }
+    }
+
+    return closestBelow;
+}
+
+// Рекурсивная вставка узла в дереве
 TreeNode* insert(TreeNode* root, int key, int level) {
     // Достигли листового узла
     if (root == nullptr) {
@@ -54,6 +77,8 @@ void bottomUpTraversal(TreeNode* node) {
 }
 
 int main() {
+    time_t t;
+    srand(time(&t));
     int n = 14;    // Кол-во узлов
 
     TreeNode* root = nullptr;
@@ -67,6 +92,19 @@ int main() {
 
     cout << "\n\nResult: " << endl;
     bottomUpTraversal(root);
+
+     int targetValue; // Значение, для которого ищем ближайшее снизу
+    cout << "\nEnter the target value: ";
+    cin >> targetValue;
+
+    int closestBelowValue = findClosestBelow(root, targetValue);
+
+    if (closestBelowValue == INT_MIN) {
+        cout << "\nNo value below the target in the tree." << endl;
+    } else {
+        cout << "\nThe closest value below the target is: " << closestBelowValue << endl;
+    }
+
 }
 
 
