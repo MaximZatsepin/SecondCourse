@@ -113,5 +113,6 @@ int random()
 {
     int rnd =  rand() % (120 - 0 + 1);
     if (rnd < 0) {rnd *= -1;}
+    cout << rand << " ";
     return rnd;
 }
