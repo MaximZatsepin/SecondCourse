@@ -1,4 +1,6 @@
 #include <iostream>
+using namespace std;
+
 
 struct Edge {
     int destination;
@@ -52,12 +54,12 @@ int main() {
                 used[start_vertex] = used[closest_vertex] = true;
                 mst_weight += min_edge_weight;
 
-                std::cout << "Added edge: " << start_vertex << " -- " << closest_vertex << " with weight " << min_edge_weight << std::endl;
+                cout << "Added edge: " << start_vertex << " -- " << closest_vertex << " with weight " << min_edge_weight << endl;
             }
         }
     }
 
-    std::cout << "Minimum spanning tree weight: " << mst_weight << std::endl;
+    cout << "Minimum spanning tree weight: " << mst_weight << endl;
 
     return 0;
 }
