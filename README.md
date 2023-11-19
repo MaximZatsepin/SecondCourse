@@ -1,4 +1,4 @@
-### Hi there 👋, All labs are written in VSCode
+### Hi there 👋, All labs are written in VSCode & Visual Studio
 -  **[Lab 1](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab1)** - _DEVELOPMENT OF PSEUDORANDOM GENERATION ALGORITHMS SEQUENCES_
 -  **[Lab 2](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab2)** - _DEVELOPMENT AND RESEARCH OF SORTING ALGORITHMS DATA_
 -  **[Lab 3](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab3)** - _DEVELOPMENT AND RESEARCH OF ALGORITHMS FOR COMPLEX RECURSIONS ON THE EXAMPLE OF DATA SORTING_

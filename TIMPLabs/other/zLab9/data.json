@@ -1,0 +1,29 @@
+{
+    "workTypes": [
+      {"code": 1, "name": "Замена масла"},
+      {"code": 2, "name": "Ремонт двигателя"},
+      {"code": 3, "name": "Замена тормозных колодок"}
+    ],
+    "carModels": [
+      {"code": 1, "name": "Toyota Camry"},
+      {"code": 2, "name": "Ford Focus"},
+      {"code": 3, "name": "Honda Accord"}
+    ],
+    "carOwners": [
+      {"code": 1, "fullName": "Иванов Иван Иванович", "passportSeries": "1234", "passportNumber": "567890", "issuedBy": "ОВД г. Москвы", "issueDate": "01.01.2000"},
+      {"code": 2, "fullName": "Петров Петр Петрович", "passportSeries": "4321", "passportNumber": "098765", "issuedBy": "ОВД г. Санкт-Петербурга", "issueDate": "02.02.2005"}
+    ],
+    "cars": [
+      {"code": 1, "modelCode": 1, "ownerCode": 1, "carNumber": "A123BC"},
+      {"code": 2, "modelCode": 2, "ownerCode": 2, "carNumber": "B456DE"}
+    ],
+    "masters": [
+      {"code": 1, "fullName": "Сидоров Сидор Сидорович", "passportData": "5678 123456", "birthDate": "03.03.1990"},
+      {"code": 2, "fullName": "Николаев Николай Николаевич", "passportData": "8765 654321", "birthDate": "04.04.1985"}
+    ],
+    "jobs": [
+      {"carCode": 1, "workTypeCode": 1, "startDate": "10.01.2023", "masterCode": 1, "endDate": "15.01.2023", "description": "Замена масла и фильтра"},
+      {"carCode": 2, "workTypeCode": 2, "startDate": "12.01.2023", "masterCode": 2, "endDate": "20.01.2023", "description": "Ремонт двигателя"}
+    ]
+  }
+  
