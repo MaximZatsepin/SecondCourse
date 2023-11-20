@@ -33,26 +33,86 @@
 26
 Ответ - 18
 */
+
+
+
+// Оптимизированная
+// #include <iostream>
+// #include <chrono>
+// #include <time.h>
+// using namespace std;
+// int main() {
+//     srand(time(nullptr));
+    
+//     short n; cin >> n;
+//     short arr[10000];
+//     for (short i = 0; i < n; ++i) {
+//         // cin >> arr[i];
+//         arr[i] = rand() % 1000;
+//     }
+
+//     auto start = chrono::steady_clock::now();
+    
+//     float avg = 1001.0;
+//     short index = 6;
+//     short num;
+//     while(index < n){
+//         for(short i = 0; i < n-index; i++){
+//             num = (arr[i]+arr[i+index]) * 0.5;
+//             if (num < avg){ avg = num; }
+//         }
+//         ++index;
+//     }
+//     cout << avg << endl;
+//     auto dur = chrono::steady_clock::now() - start;
+//     cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд" << endl;
+//     return 0;
+// }
+
+
+// Неоптимизированная
 #include <iostream>
+#include <chrono>
+#include <time.h>
 using namespace std;
-int main() {
-    short n; cin >> n;
-    short arr[10000];
+
+static void test_proc(){
+    int n; cin >> n;
+    int arr[10000];
     for (short i = 0; i < n; ++i) {
-        cin >> arr[i];
+        // cin >> arr[i];
+        arr[i] = rand() % 1000;
     }
+
+    auto start = chrono::steady_clock::now();
+    
     float avg = 1001.0;
-    short index = 6;
-    short num;
+    int index = 6;
+    int num;
     while(index < n){
-        for(short i = 0; i < n-index; i++){
+        for(int i = 0; i < n-index; i++){
             num = (arr[i]+arr[i+index]) * 0.5;
             if (num < avg){ avg = num; }
         }
         ++index;
     }
     cout << avg << endl;
-    // cin.ignore();
-    // cin.get();
+    auto dur = chrono::steady_clock::now() - start;
+    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд" << endl;
+}
+
+static void size_proc(){}
+
+static size_t test_proc_size(){
+    return (uintptr_t)((uintptr_t)(void*)size_proc - (uintptr_t)(void*)test_proc);
+}
+
+int main() {
+    srand(time(nullptr));
+    test_proc(); // Функция с тз
+    size_proc(); // Функция пустышка, записана после тз
+    cout << "Память программы: " << test_proc_size() << " бит" << endl; // вычислялка на 107 строке
     return 0;
 }
+
+
