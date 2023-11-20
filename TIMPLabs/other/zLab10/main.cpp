@@ -41,9 +41,8 @@
 // #include <chrono>
 // #include <time.h>
 // using namespace std;
-// int main() {
-//     srand(time(nullptr));
-    
+
+// static void test_proc(){
 //     short n; cin >> n;
 //     short arr[10000];
 //     for (short i = 0; i < n; ++i) {
@@ -65,54 +64,73 @@
 //     }
 //     cout << avg << endl;
 //     auto dur = chrono::steady_clock::now() - start;
-//     cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд" << endl;
+//     cout << "Time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcrsec" << endl;
+// }
+
+// static void size_proc(){}
+
+// static size_t test_proc_size(){
+//     return (uintptr_t)((uintptr_t)(void*)size_proc - (uintptr_t)(void*)test_proc);
+// }
+
+// int main() {
+//     srand(time(nullptr));
+//     test_proc(); // Функция с тз
+//     size_proc(); // Функция пустышка, записана после тз
+//     cout << "Memory: " << test_proc_size() << " bit" << endl; // вычислялка на 107 строке
 //     return 0;
 // }
 
-
-// Неоптимизированная
 #include <iostream>
+#include <unordered_map>
 #include <chrono>
-#include <time.h>
+
 using namespace std;
 
-static void test_proc(){
-    int n; cin >> n;
-    int arr[10000];
+int main() {
+    short n;
+    cin >> n;
+
+    short arr[10000];
     for (short i = 0; i < n; ++i) {
         // cin >> arr[i];
         arr[i] = rand() % 1000;
     }
 
     auto start = chrono::steady_clock::now();
-    
-    float avg = 1001.0;
-    int index = 6;
-    int num;
-    while(index < n){
-        for(int i = 0; i < n-index; i++){
-            num = (arr[i]+arr[i+index]) * 0.5;
-            if (num < avg){ avg = num; }
-        }
-        ++index;
+
+    unordered_map<short, short> sumCountMap;
+    short index = 6;
+    short sum = 0;
+
+    for (short i = 0; i < index; ++i) {
+        sum += arr[i];
     }
-    cout << avg << endl;
+
+    for (short i = 0; i < n - index; ++i) {
+        sum += arr[i + index];
+        short avg = sum / index;
+        sumCountMap[avg]++;
+        sum -= arr[i];
+    }
+
+    float minAvg = 1001.0;
+    for (const auto& entry : sumCountMap) {
+        if (entry.first < minAvg) {
+            minAvg = entry.first;
+        }
+    }
+
     auto dur = chrono::steady_clock::now() - start;
-    cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд" << endl;
-}
-
-static void size_proc(){}
-
-static size_t test_proc_size(){
-    return (uintptr_t)((uintptr_t)(void*)size_proc - (uintptr_t)(void*)test_proc);
-}
-
-int main() {
-    srand(time(nullptr));
-    test_proc(); // Функция с тз
-    size_proc(); // Функция пустышка, записана после тз
-    cout << "Память программы: " << test_proc_size() << " бит" << endl; // вычислялка на 107 строке
+    cout << "Min Avg: " << minAvg << endl;
+    cout << "time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcrsec";
+    cin.ignore();
+    cin.get();
     return 0;
 }
 
-
+// #include <chrono>
+// auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
+// auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
+// cout << "Время выполнения программы: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " микросекунд";
+// start = chrono::steady_clock::now(); // Снова запоминаем время начала работы программы
