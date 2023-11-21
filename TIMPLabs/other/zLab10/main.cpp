@@ -81,54 +81,6 @@
 //     return 0;
 // }
 
-#include <iostream>
-#include <unordered_map>
-#include <chrono>
-
-using namespace std;
-
-int main() {
-    short n;
-    cin >> n;
-
-    short arr[10000];
-    for (short i = 0; i < n; ++i) {
-        // cin >> arr[i];
-        arr[i] = rand() % 1000;
-    }
-
-    auto start = chrono::steady_clock::now();
-
-    unordered_map<short, short> sumCountMap;
-    short index = 6;
-    short sum = 0;
-
-    for (short i = 0; i < index; ++i) {
-        sum += arr[i];
-    }
-
-    for (short i = 0; i < n - index; ++i) {
-        sum += arr[i + index];
-        short avg = sum / index;
-        sumCountMap[avg]++;
-        sum -= arr[i];
-    }
-
-    float minAvg = 1001.0;
-    for (const auto& entry : sumCountMap) {
-        if (entry.first < minAvg) {
-            minAvg = entry.first;
-        }
-    }
-
-    auto dur = chrono::steady_clock::now() - start;
-    cout << "Min Avg: " << minAvg << endl;
-    cout << "time: " << chrono::duration_cast<chrono::microseconds>(dur).count() << " mcrsec";
-    cin.ignore();
-    cin.get();
-    return 0;
-}
-
 // #include <chrono>
 // auto start = chrono::steady_clock::now(); // Запоминаем время начала работы программы
 // auto dur = chrono::steady_clock::now() - start; // Вычисляем время выполнения
