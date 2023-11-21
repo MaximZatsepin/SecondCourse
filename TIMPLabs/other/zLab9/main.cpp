@@ -13,9 +13,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
-// #include "nlohmann/json.hpp"
+#include "json.hpp"
 
-// using json = nlohmann::json;
+using json = nlohmann::json;
 
 using namespace std;
 
@@ -49,8 +49,8 @@ struct Work{
 };
 
 int main(){
-    // ifstream f("data.json");
-    // json data = json::parse(f);
-    // cout << data;
+    ifstream f("data.json");
+    json data = json::parse(f);
+    cout << data;
 }
 
