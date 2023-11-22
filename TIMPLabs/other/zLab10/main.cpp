@@ -26,24 +26,28 @@ int main () {
     cout << "Non-optimized\n";
     srand(time(nullptr));
     //while(true){
-    int a[10000]; // исходные данные
-    int N;
-    int minb; // искомое минимальное произведение пары чисел
-    cin >> N;
+    int array[10000];
+    int n; cin >> n;
+    float minAvg = 5001.0;
+    // int num1,num2;
     auto start = chrono::steady_clock::now();
-    for (int i = 0; i < N; i++) {
-        cin >> a[i];
+    for (int i = 0; i < n; i++) {
+        cin >> array[i];
         // a[i] = rand() % 1000;
     }
-    minb = 1001;
-    for (int i = 0; i < N - 6; i++) {
-        for (int j = i + 6; j < N; j++) {
-            if (a[i] * a[j] < minb) {
-                minb = a[i] * a[j];
+    int iterations = 0;
+    for (int i = 0; i < n - 6; i++) {
+        for (int j = i + 6; j < n; j++) {
+            float temp = (array[i] + array[j]) * 0.5;
+            if (temp < minAvg) {
+                minAvg = temp;
+                // num1 = array[i];
+                // num2 = array[j];
             }
+            iterations++;
         }
     }
-    cout << minb << endl;
+    cout << minAvg << endl;// << iterations << endl; //<< num1 <<" "<< num2 << endl;
     auto dur = chrono::steady_clock::now() - start;
     cout << "\ntime: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " msec";
     //}
@@ -62,29 +66,36 @@ int main() {
     cout << "Optimized\n";
     srand(time(nullptr));
     //while(true){
-    int h[6];
-    int min, n, a;
-    long long pro;
+    short *array = new short[6];
+    short min = 1001, n, a;
+    float avg = 5001.0;
     cin >> n;
     auto start = chrono::steady_clock::now();
-    min = 10001;
-    pro = 10000001;
-    for (int i = 0; i < 6; ++i)
-        cin >> h[i];
+    for (short i = 0; i < 6; ++i)
+        cin >> array[i];
         // h[i] = rand() % 1000;
-    for (int i = 6; i < n; ++i) {
+    for (short i = 6; i < n; ++i) {
         cin >> a;
         // a = rand() % 1000;
-        if (h[i % 6] < min)
-            min = h[i % 6];
-        if (min * a < pro)
-            pro = min * a;
-        h[i % 6] = a;
+        if (array[i % 6] < min)
+            min = array[i % 6];
+        if ((min + a)/2.0 < avg)
+            avg = (min + a)/2.0;
+        array[i % 6] = a;
     }
-    cout << pro << endl;
+    cout << avg << endl;
     auto dur = chrono::steady_clock::now() - start;
     cout << "\ntime: " << chrono::duration_cast<chrono::milliseconds>(dur).count() << " msec";
     //}
     return 0;
 }
 // #endif
+
+// 347 267 749 479 185 335 477 223 981 394 230 328 662 927 23
+// 347 267 749 479 185 335
+// 477 - 6
+// 347 < min
+// min = 347
+// min + 477 < avg
+// avg = min + 477
+// 223 - 7
