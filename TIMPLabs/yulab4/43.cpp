@@ -84,6 +84,7 @@ bool occupied_or_not(int lake[][100],int  i, int j, int m, int n)
 void solution(int lake[][100],int m, int n)
 {
     Cell queue[m*n+1];
+    // Cell* queue = new Cell[m * n + 1];
     int qStart = 0, qEnd = 1;
     // queue[qStart] = {0,0,0};
     // Устанавливаем начальную клетку с координатами (0,0) и ее дистанцию (0)

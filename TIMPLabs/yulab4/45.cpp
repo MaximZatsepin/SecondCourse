@@ -166,7 +166,8 @@ void create_maze(int** maze, int height, int width){
 
 void solution(int** maze,int height, int width)
 {
-    Cell queue[height*width+1];
+    //Cell queue[height*width+1];
+    Cell* queue = new Cell[height * width + 1];
     int qStart = 0, qEnd = 1;
     // queue[qStart] = {0,0,0};
     // Устанавливаем начальную клетку с координатами (0,0) и ее дистанцию (0)
