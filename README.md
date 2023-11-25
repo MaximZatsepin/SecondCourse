@@ -5,6 +5,10 @@
 -  **[Lab 4](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab4)** - _DEVELOPMENT AND RESEARCH OF ALGORITHMS ON TREES ON BASED ON DYNAMIC DATA STRUCTURES_
 -  **[Lab 5](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab5)** - _DEVELOPMENT AND RESEARCH OF FORMATION ALGORITHMS AND TRAVERSAL OF BINARY AND B+ TREES_
 -  **[Lab 6](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab6)** - _CLASSES AND OBJECTS, ENCAPSULATION, INHERITANCE_
+-  **[Lab 7](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab7)** - _GRAPHICS PROGRAMMING USING WINAPI_
+-  **[Lab 8](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab8)** - _POLYMORPHISM_
+-  **[Lab 9](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab9)** - _JSON DATA ACCESS TECHNOLOGIES_
+-  **[Lab 10](https://github.com/wumpochuck/SecondCourse/tree/main/TIMPLabs/zLab10)** - _PROGRAM CODE OPTIMIZATION_
 
 > Owner - [Me](https://github.com/wumpochuck) (zLab's)
 > 
