@@ -1,99 +1,86 @@
 /*
-9 14
-1 2 12
-1 3 20
-1 7 2
-2 8 12
-3 8 3
-3 5 12
-3 4 17
-4 5 5
-4 7 11
-4 6 6
-5 7 16
-5 6 13
-6 7 4
-6 8 17
 
-numberOfEdges = 14
+1. Создать пустое множество tree для хранения рёбер остовного дерева.
+2. Создать структуру данных для хранения множеств вершин, сначала каждая вершина находится в своём множестве.
+3. Создать список всех рёбер графа и отсортировать его по весам в порядке возрастания.
+4. Для каждого ребра (u, v) из отсортированного списка:
+  4.1 Если вершины u и v принадлежат разным множествам:
+    4.1.1 Добавить ребро (u, v) в tree.
+    4.1.2. Объединить множества, в которых находятся u и v в одно множество.
+5. Вернуть множество tree, которое является остовным деревом.
+6. Конец программы
+
 */
 
 
 #include <iostream>
 #include <vector>
-
-
-
+#include <algorithm>
 using namespace std;
-const int MAX = 10000000;
-int root[MAX];
-const int nodes = 8, edges = 14;
-pair <int, pair<int, int> > arr[MAX];
 
-int parent(int a)                                                  //find the parent of the given node
-{ 
-    while(root[a] != a)
-    {
-        root[a] = root[root[a]];
-        a = root[a];
-    }
-    // Возвращает корень множества, к которому принадлежит а
-    return a;
+//Алгоритм Крускала
+struct Edge {
+    int src, dest, weight;
+};
+
+// Сравнение рёбер по весу для сортировки
+bool compareEdges(Edge e1, Edge e2) {
+    return e1.weight < e2.weight;
 }
 
-int kruskal()
-{
-    int a, b;
-    int cost, minCost = 0;
-    for(int i = 0 ; i < edges ; ++i)
-    {
-        a = arr[i].second.first;
-        b = arr[i].second.second;
-        cost = arr[i].first;
-        if(parent(a) != parent(b))      //only select edge if it does not create a cycle (ie the two nodes forming it have different root nodes)
-        {
-            minCost += cost;
-            cout << "("<<parent(a) << " - "<<parent(b) << " | "<<cost << ") ";
-            // union_find(a, b);
-            root[parent(a)] = root[parent(b)];
-            //check if the given two vertices are in the same “union” or not
-            for(int j = 0; j < nodes; j++){
-                cout << root[j] << " ";
-            }
-            cout << endl;
+// Найти множество вершины
+int findSet(int v, vector<int>& parent) {
+    if (v == parent[v])
+        return v;
+    return parent[v] = findSet(parent[v], parent);
+}
+
+// Объединить два множества
+void unionSets(int a, int b, vector<int>& parent, vector<int>& rank) {
+    a = findSet(a, parent);
+    b = findSet(b, parent);
+    if (a != b) {
+        if (rank[a] < rank[b])
+            swap(a, b);
+        parent[b] = a;
+        if (rank[a] == rank[b])
+            rank[a]++;
+    }
+}
+
+// Алгоритм Крускала для поиска MST
+void kruskal(int V, vector<Edge>& edges) {
+    int minSum = 0;
+    sort(edges.begin(), edges.end(), compareEdges);
+    vector<int> parent(V);
+    vector<int> rank(V, 0);
+    for (int i = 0; i < V; i++)
+        parent[i] = i;
+    vector<Edge> result;
+    for (Edge e : edges) {
+        if (findSet(e.src, parent) != findSet(e.dest, parent)) {
+            result.push_back(e);
+            unionSets(e.src, e.dest, parent, rank);
         }
     }
-    return minCost;
+    // Вывод результата
+    for (Edge e : result) {
+        cout << "Node " << e.src << " linked with node " << e.dest << " by edge " << e.weight << endl;
+        minSum += e.weight;
+    }
+    cout << "Minimum sum of edges: " << minSum;
+
 }
 
-int main()
-{
-    // int x, y;
-    // int weight, cost; 
-    int minCost;
-    for(int i = 0;i < MAX;++i)                                       //initialize the array groups
-    {
-        root[i] = i;
-    }
-    
-    arr[0] = make_pair(12, make_pair(1, 2)); 
-    arr[1] = make_pair(20, make_pair(1, 3)); 
-    arr[2] = make_pair(2, make_pair(1, 7)); 
-    arr[3] = make_pair(12, make_pair(2, 8)); 
-    arr[4] = make_pair(3, make_pair(3, 8)); 
-    arr[5] = make_pair(1, make_pair(3, 5)); 
-    arr[6] = make_pair(17, make_pair(3, 4)); 
-    arr[7] = make_pair(5, make_pair(4, 5));
-    arr[8] = make_pair(11, make_pair(4, 7));
-    arr[9] = make_pair(6, make_pair(4, 6)); 
-    arr[10] = make_pair(16, make_pair(5, 7));
-    arr[11] = make_pair(13, make_pair(5, 6));
-    arr[12] = make_pair(4, make_pair(6, 7));
-    arr[13] = make_pair(17, make_pair(6, 8));
-    // 2 + 4 + 3 + 5 + 6 + 1 + 12 = 33
-
-    sort(arr, arr + edges);                                             //sort the array of edges
-    minCost = kruskal();
-    cout << "Minimum cost is: "<< minCost << endl;
+int main() {
+    int V = 14;
+    setlocale(0, "");
+    vector<Edge> edges = {
+        {1, 2, 12}, {1, 3, 20}, {1, 7, 2},  {2, 8, 12}, 
+        {3, 8, 3},  {3, 5, 1},  {3, 4, 17}, {4, 5, 5}, 
+        {4, 7, 11}, {4, 6, 6},  {5, 7, 17},
+        {5,6,13},   {6,7,4},    {6,8,17}
+    };
+    kruskal(V, edges);
     return 0;
 }
