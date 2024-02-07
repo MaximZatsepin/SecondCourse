@@ -1,14 +1,18 @@
 public class Palindrome {
     public static void main(String[] args){
         for(int i = 0; i < args.length; i++){
-            String s = args[i];
+            String str = args[i];
         }
     }
-    public static String reverseString(String s){
-        String reverse_s = "";
-        for(int i = s.length() - 1; i >= 0; i--){
-            reverse_s += s.charAt(i);
+    public static String reverseString(String str){
+        String reverse_str = "";
+        for(int i = str.length() - 1; i >= 0; i--){
+            reverse_str += str.charAt(i);
         }
-        return reverse_s;
+        return reverse_str;
+    }
+    public static boolean isPalindrome(String str){
+        String str1 = str;
+        String str2 = reverseString(str);
     }
 }
