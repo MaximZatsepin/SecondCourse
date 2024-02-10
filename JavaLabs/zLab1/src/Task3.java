@@ -3,9 +3,10 @@ import static java.lang.Math.*;
 public class Task3 {
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("Неверный аргумент!");
+            System.out.println("Не указаны числа!");
             return;
         }
+
         double[] array = Functions(Double.parseDouble(args[0]));
         System.out.println("Аргумент Y: " + array[0]);
         System.out.println("Аргумент F: " + array[1]);
