@@ -1,49 +1,18 @@
+
 public class Task1 {
-    public static void task1(){
-        // Создать массив случайных чисел, вывести максимальное, минимальное, среднее
-        int n = 15;
-        double[] array = new double[n];
+//    8. Пенсионные отчисления составляют p% заработной платы.
+//    В январе средняя заработная плата составляла Z руб, а далее
+//    увеличивалась на q% ежемесячно. Для каждого месяца текущего
+//    года вычислить пенсионные отчисления.
+    public static void main(String[] args) {
+        if(args.length != 2) { System.out.println("Неверный аргумент!"); return; }
 
-        // Заполнение
-        for(int i = 0; i < n; i++){
-           array[i] = Math.round(Math.random() * 100);
+        int z = Integer.parseInt(args[0]);
+        float q = Float.parseFloat(args[1]);
+        System.out.println("Z = " + z + ", q = " + q);
+        for(int i = 0; i < 11; i++){
+            System.out.print("Пенсионные отчисления в месяце " + (int)(i+1) + ": " + (float)(z * q * 0.13) +"\n");
+            z += z * q;
         }
-
-        // Вывод
-        System.out.print("\nЗаполненный массив: ");
-        for(int i = 0; i < n; i++){
-           System.out.print(array[i] + " ");
-        }
-
-        // Нахождение максимального, минимального, среднего
-        double max = array[0];
-        double min = array[0];
-        double avg = 0;
-        for(int i = 0; i < n; i++){
-           if(array[i] < min) min = array[i];
-           if(array[i] > max) max = array[i];
-           avg += array[i] / n;
-        }
-        System.out.println("\nМаксимальное: " + max);
-        System.out.println("Минимальное: " + min);
-        System.out.println("Среднее: " + avg);
-        
-        // Пузырьковая сортировка:
-        double temp;
-        for(int i = 0; i < n-1; i++){
-           for(int j = i; j < n; j++){
-               if(array[i] > array[j]){
-                   temp = array[i];
-                   array[i] = array[j];
-                   array[j] = temp;
-               }
-           }
-        }
-        // Вывод
-        System.out.print("Отсортированный массив: ");
-        for(int i = 0; i < n; i++){
-            System.out.print(array[i] + " ");
-        }
-        System.out.println("\n");
-   }
+    }
 }
