@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    /*
+     * Вариант 8
+     * Разработать класс для хранения информации о людях:
+     * Фамилия, Имя, год_рождения, месяц_рождения
+     * и реализовать алгоритм работы с массивом данных объектов, в котором требуется:
+     * – определить самого старого человека;
+     * – определить средний возраст (использовать только год рождения) и людей старше среднего возраста;
+     * – упорядочить массив по фамилиям в порядке, обратном алфавитному;
+     * – организовать поиск по фамилии, исправление одного из полей и вывод полной информации о человеке после редактирования.
+     */
+    public static void main(String[] args) throws Exception {
+        
+        // Readers and Writers
+        FileWriter fw = new FileWriter("data.txt",true);
+        FileReader fr = new FileReader("data.txt");
+        Scanner fScanner = new Scanner(fr);
+        Scanner scanner = new Scanner(System.in);
+        
+        // Список людей
+        ArrayList<People> peopleList = new ArrayList<People>();
+
+        // Добавление человека
+        while(fScanner.hasNextLine()){
+            String[] data = fScanner.nextLine().replaceAll("[,.]", " ").split("\s+");
+            peopleList.add(new People(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3])));
+        }
+        
+        for (People people : peopleList) {
+            System.out.println(people.getData());
+        }
+        
+            
+        fw.close();
+        fr.close();
+    }
+}
