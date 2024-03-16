@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try{
+
             // Выбор директории
             String working_dir = System.getProperty("user.dir");
             System.out.println("Working Directory = " + working_dir);
 
             // Создание файла (если его нет)
-            File f1 = new File(working_dir + "\\data.txt");
+// !!!!!!!!!!!!!!!! В СТРОКЕ 16 И 107 ДЛЯ Windows использовать \\... , ДЛЯ MacOS /... !!!!!!!!!!!!!!!!!!
+            File f1 = new File(working_dir + "/data.txt");
             if(!f1.exists()){
                 f1.createNewFile();
                 System.out.println("File created!");
@@ -102,7 +104,7 @@ public class Main {
         System.out.println("Укажите название нового файла:");
         scanner.nextLine();
         String filename = scanner.nextLine();
-        File f2 = new File(working_dir + "\\" + filename);
+        File f2 = new File(working_dir + "/" + filename);
         if(f2.exists()){
             System.out.println("Ошибка: файл уже существует!");
             System.out.println(filename);
