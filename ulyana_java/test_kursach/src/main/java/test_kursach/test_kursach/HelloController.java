@@ -1,4 +1,4 @@
-package kursach.kursach;
+package test_kursach.test_kursach;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
