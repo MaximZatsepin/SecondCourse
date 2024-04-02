@@ -1,4 +1,4 @@
-package demo1.demo3;
+package demo1.game_of_live;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
