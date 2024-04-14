@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Calculating_the_mass/1.0.0": {
+        "runtime": {
+          "Calculating_the_mass.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Calculating_the_mass/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
