@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "\\\\Mac\\Home\\Desktop\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj": {}
+    "D:\\Github\\SecondCourse\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj": {}
   },
   "projects": {
-    "\\\\Mac\\Home\\Desktop\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj": {
+    "D:\\Github\\SecondCourse\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\Mac\\Home\\Desktop\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj",
+        "projectUniqueName": "D:\\Github\\SecondCourse\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj",
         "projectName": "Calculating_the_mass",
-        "projectPath": "\\\\Mac\\Home\\Desktop\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj",
-        "packagesPath": "C:\\Users\\wumpochuck\\.nuget\\packages\\",
-        "outputPath": "\\\\Mac\\Home\\Desktop\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\obj\\",
+        "projectPath": "D:\\Github\\SecondCourse\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\Calculating_the_mass.csproj",
+        "packagesPath": "C:\\Users\\wumpo\\.nuget\\packages\\",
+        "outputPath": "D:\\Github\\SecondCourse\\Цилиндры\\Calculating_the_mass\\Calculating_the_mass\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\wumpochuck\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wumpo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -55,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }

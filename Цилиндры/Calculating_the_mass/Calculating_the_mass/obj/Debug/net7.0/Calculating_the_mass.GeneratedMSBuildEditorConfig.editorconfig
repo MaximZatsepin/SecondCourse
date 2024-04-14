@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Calculating_the_mass
-build_property.ProjectDir = \\Mac\Home\Desktop\Цилиндры\Calculating_the_mass\Calculating_the_mass\
+build_property.ProjectDir = D:\Github\SecondCourse\Цилиндры\Calculating_the_mass\Calculating_the_mass\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
