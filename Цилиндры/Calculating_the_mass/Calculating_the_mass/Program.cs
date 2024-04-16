@@ -21,7 +21,6 @@ namespace Calculating_the_mass
         static void Main(string[] args)
         {
             LoadMaterials("data.txt");
-
             int choice;
             do
             {
@@ -35,28 +34,26 @@ namespace Calculating_the_mass
                     Console.WriteLine("Некорректный выбор.");
                 }
             } while (choice != 0);
+            Console.WriteLine("Программа завершила работу!");
         }
 
         static void LoadMaterials(string filename)
         {
             try
             {
-                Console.WriteLine(Directory.GetCurrentDirectory() + "\\..\\..\\..\\data.txt");
-                using (StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "/../../../data.txt"))
+                //Console.WriteLine(Directory.GetCurrentDirectory() + "\\..\\..\\..\\data.txt");
+                StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "/../../../data.txt");
+                string line;
+                while ((line = sr.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    string[] parts = line.Split(' ');
+                    if (parts.Length == 2)
                     {
-                        string[] parts = line.Split(' ');
-                        if (parts.Length == 2)
-                        {
-                            Console.WriteLine("шпякбря");
-                            Material material = new Material();
-                            material.Name = parts[0];
-                            material.Density = Double.Parse(parts[1]);
-                            materials.Add(material);
+                        Material material = new Material();
+                        material.Name = parts[0];
+                        material.Density = Double.Parse(parts[1]);
+                        materials.Add(material);
 
-                        }
                     }
                 }
             }
@@ -69,17 +66,13 @@ namespace Calculating_the_mass
         static int ShowMenu()
         {
             Console.WriteLine("Меню выбора материала:");
-            Console.WriteLine(materials.Count);
             for (int i = 0; i < materials.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {materials[i].Name}");
+                Console.WriteLine($"{i + 1 , 2}. {materials[i].Name}");
             }
-            Console.WriteLine("0. Завершить работу");
+            Console.WriteLine(" 0. Завершить работу");
             Console.Write("Выберите материал: ");
-            if (!int.TryParse(Console.ReadLine(), out int choice))
-            {
-                choice = -1;
-            }
+            int choice = int.Parse(Console.ReadLine());
             return choice;
         }
 
@@ -95,7 +88,8 @@ namespace Calculating_the_mass
 
             Console.WriteLine($"Характеристики стержня:");
             Console.WriteLine($"Материал: {material.Name}, Плотность: {material.Density} г/см^3");
-            Console.WriteLine($"Объем: {volume} см^3, Масса: {(mass > 1000 ? mass / 1000 : mass)} {(mass > 1000 ? "кг" : "г")}");
+            Console.WriteLine($"Объем: {volume:f4} см^3, Масса: {(mass > 1000 ? mass / 1000 : mass):f4} {(mass > 1000 ? "кг" : "г"):f4}");
+            Console.WriteLine("\n");
         }
 
         static double CalculateCylinderVolume(double diameter, double length)
