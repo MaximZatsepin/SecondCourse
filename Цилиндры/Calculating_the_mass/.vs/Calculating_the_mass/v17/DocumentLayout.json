@@ -18,21 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 56,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "data.txt",
-              "DocumentMoniker": "D:\\Github\\SecondCourse\\\u0426\u0438\u043B\u0438\u043D\u0434\u0440\u044B\\Calculating_the_mass\\Calculating_the_mass\\data.txt",
-              "RelativeDocumentMoniker": "Calculating_the_mass\\data.txt",
-              "ToolTip": "D:\\Github\\SecondCourse\\\u0426\u0438\u043B\u0438\u043D\u0434\u0440\u044B\\Calculating_the_mass\\Calculating_the_mass\\data.txt",
-              "RelativeToolTip": "Calculating_the_mass\\data.txt",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-04-14T11:16:35.043Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -41,9 +28,22 @@
               "RelativeDocumentMoniker": "Calculating_the_mass\\Program.cs",
               "ToolTip": "D:\\Github\\SecondCourse\\\u0426\u0438\u043B\u0438\u043D\u0434\u0440\u044B\\Calculating_the_mass\\Calculating_the_mass\\Program.cs",
               "RelativeToolTip": "Calculating_the_mass\\Program.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAkwGQAAAABAAAA",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAIwFYAAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-14T11:16:30.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "data.txt",
+              "DocumentMoniker": "D:\\Github\\SecondCourse\\\u0426\u0438\u043B\u0438\u043D\u0434\u0440\u044B\\Calculating_the_mass\\Calculating_the_mass\\data.txt",
+              "RelativeDocumentMoniker": "Calculating_the_mass\\data.txt",
+              "ToolTip": "D:\\Github\\SecondCourse\\\u0426\u0438\u043B\u0438\u043D\u0434\u0440\u044B\\Calculating_the_mass\\Calculating_the_mass\\data.txt",
+              "RelativeToolTip": "Calculating_the_mass\\data.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-04-14T11:16:35.043Z",
               "EditorCaption": ""
             }
           ]

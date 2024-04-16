@@ -83,8 +83,8 @@ namespace Calculating_the_mass
             Console.Write("Введите длину стержня (мм): ");
             double length = double.Parse(Console.ReadLine());
 
-            double volume = CalculateCylinderVolume(diameter, length);
-            double mass = volume * material.Density;
+            double volume = CalculateCylinderVolume(diameter, length) / 1000; // Получаем из мм^3 см^3 
+            double mass = volume * material.Density; // см * г/см = г
 
             Console.WriteLine($"Характеристики стержня:");
             Console.WriteLine($"Материал: {material.Name}, Плотность: {material.Density} г/см^3");
