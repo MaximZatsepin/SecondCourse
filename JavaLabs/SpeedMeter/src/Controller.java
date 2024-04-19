@@ -155,7 +155,7 @@ public class Controller extends JPanel implements KeyListener {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Spidometr");
+        JFrame frame = new JFrame("Speedmeter");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new Controller());
         frame.pack();
