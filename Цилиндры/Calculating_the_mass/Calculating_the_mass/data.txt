@@ -1,0 +1,12 @@
+Aluminum 2,7
+Iron 7,87
+Copper 8,96
+Tin 7,3
+Lead 11,34
+Nickel 8,9
+Gold 19,32
+Silver 10,49
+Platinum 21,45
+Steel 7,8
+Bronze 8,8
+Zinc 7,14
