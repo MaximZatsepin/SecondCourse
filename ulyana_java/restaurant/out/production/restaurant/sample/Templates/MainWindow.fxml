@@ -97,7 +97,7 @@
         </AnchorPane>
         <AnchorPane fx:id="OrderPage" layoutY="100.0" prefHeight="600.0" prefWidth="1200.0">
             <children>
-                
+
                 <Text fill="#7a1d16" layoutX="50.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выберите блюдо:" wrappingWidth="240.0">
                     <font>
                         <Font name="System Bold" size="24.0" />
